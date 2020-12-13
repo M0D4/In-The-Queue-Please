@@ -92,10 +92,13 @@ public class Main extends Application {
         modelBox.getItems().add("D/D/1/K-1");
         modelBox.getItems().add("M/M/1");
         modelBox.getItems().add("M/M/1/K");
-        modelBox.getItems().add("M/M/1/K");
+        modelBox.getItems().add("M/M/C");
+        modelBox.getItems().add("M/M/C/K");
         modelBox.getSelectionModel().selectFirst();
         
         modelBox.setOnAction(e -> {
+            if(modelBox.getSelectionModel().getSelectedIndex() + 1 == 1) queryButton.setText("Query");
+            else queryButton.setText("Solve");
             initModel(modelBox.getSelectionModel().getSelectedIndex() + 1);
         });
 
@@ -141,35 +144,41 @@ public class Main extends Application {
         switch (n) {
             case 1:
                 if(last_model_selected == 1) return;
-                capacityKInput.setDisable(true);
-                ServersCInput.setDisable(true);
+                setDisableAll(true);
                 
                 initialNumberMInput.setDisable(false);
                 initialNumberMInput.setText("0");
                 last_model_selected = 1;
                 
-                queryButton.setText("Query");
                 break;
             case 2:
                 // M/M/1
                 if(last_model_selected == 2) return;
-                capacityKInput.setDisable(true);
-                capacityK_minus1_input.setDisable(true);
-                ServersCInput.setDisable(true);
-                initialNumberMInput.setDisable(true);
-                last_model_selected = 2;
+                setDisableAll(true);
                 
-                queryButton.setText("Solve");
+                last_model_selected = 2;
                 break;
             case 3:
                 // M/M/1/K
                 if(last_model_selected == 3) return;
-                capacityK_minus1_input.setDisable(true);
-                initialNumberMInput.setDisable(true);
-                serversCLabel.setDisable(true);
+                setDisableAll(true);
                 capacityKInput.setDisable(false);
                 last_model_selected = 3;
-                queryButton.setText("Solve");
+                break;
+            case 4:
+                // M/M/C
+                if(last_model_selected == 4) return;
+                setDisableAll(true);
+                ServersCInput.setDisable(false);
+                last_model_selected = 4;
+                break;
+            case 5:
+                // M/M/C/K
+                if(last_model_selected == 5) return;
+                setDisableAll(true);
+                ServersCInput.setDisable(false);
+                capacityKInput.setDisable(false);
+                last_model_selected = 5;
                 break;
             default:
                 break;
@@ -183,6 +192,13 @@ public class Main extends Application {
         capacityK_minus1_input.clear();
         initialNumberMInput.setText("0");
         ServersCInput.clear();
+    }
+    
+    private void setDisableAll(boolean status){
+        capacityKInput.setDisable(status);
+        capacityK_minus1_input.setDisable(status);
+        initialNumberMInput.setDisable(status);
+        ServersCInput.setDisable(status);
     }
     /**
      * @param args the command line arguments
