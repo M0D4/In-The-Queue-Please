@@ -27,6 +27,7 @@ public class Model1{
     static private Button calculateButton, clearButton;
     static private HBox twoButtons;
     static private int n, t, ti = -1;
+    static double arrival_time, service_time, EPS = 1e-17;
     
     public static void solve(double lambda, double mu, int capacityK_minus_1, int initialNumberM){
         
@@ -67,6 +68,9 @@ public class Model1{
         twoButtons.setSpacing(5);
         
         setConstrains();
+        
+        arrival_time = 1 / lambda + EPS;
+        service_time = 1 / mu + EPS;
         
         calcTi(lambda, mu, capacityK_minus_1, initialNumberM);
         System.out.println(ti);
@@ -137,36 +141,35 @@ public class Model1{
     private static void calcWq(double lambda, double mu, int k_minus_1, int m) {
         int answer = 0;
         int k = k_minus_1 + 1;
-        double arrival_rate = 1 / lambda, service_rate = 1 / mu;
         
         if(m == 0){
             if(n == 0)
                 answer = 0;
             else if(n < lambda * ti)
-                answer = (int)((service_rate - arrival_rate) * (n - 1));
+                answer = (int)(EPS + (service_time - arrival_time) * (n - 1));
             else
                 answer = -1;
             
             if(answer == -1){
                 if(isMuMultipleOfLambda(lambda, mu)){
-                    answerWq_of_n.setText("Customer number " + n + " will wait about " + (int)((service_rate - arrival_rate)*(lambda * ti - 2)) + " second(s)");
+                    answerWq_of_n.setText("Customer number " + n + " will wait about " + (int)((service_time - arrival_time)*(lambda * ti - 2) + EPS) + " second(s)");
                 }else{
-                    answerWq_of_n.setText("Customer number " + n + " will wait " +(int)((service_rate - arrival_rate)*(lambda * ti - 2)) + " or " + (int)((service_rate - arrival_rate)*(lambda * ti - 3)) + " second(s)");
+                    answerWq_of_n.setText("Customer number " + n + " will wait " +(int)((service_time - arrival_time)*(lambda * ti - 2) + EPS) + " or " + (int)((service_time - arrival_time)*(lambda * ti - 3) + EPS) + " second(s)");
                 }
             }else
                 answerWq_of_n.setText("Customer number " + n + " will wait about " + answer + " second(s)");
         }else{
             if(lambda == mu)
-                answer = (int)((m - 1) * (1 / mu));
+                answer = (int)((m - 1) * (1 / mu) + EPS);
             else if(n == 0)
                 answer = -1;
-            else if(n < (int) ti * lambda)
-                answer = (int)((m + n - 1) * service_rate - n * arrival_rate);
+            else if(n < (int) (ti * lambda + EPS))
+                answer = (int)((m + n - 1) * service_time - n * arrival_time + EPS);
             else 
-                n = 0;
+                answer = 0;
             
-            if(n == -1)
-                answerWq_of_n.setText("Customer number " + n + " will wait about " + (int)((m - 1)*(2 * mu)) + " second(s) in average.");
+            if(answer == -1)
+                answerWq_of_n.setText("Customer number " + n + " will wait about " + (int)((m - 1)*(2 * mu) + EPS) + " second(s) in average.");
             else
                 answerWq_of_n.setText("Customer number " + n + " will wait about " + answer + " second(s)");
 
@@ -176,12 +179,12 @@ public class Model1{
     private static void calcNt(double lambda, double mu, int k_minus_1, int m) {
         int answer = 0;
         int k = k_minus_1 + 1;
-        double arrival_rate = 1 / lambda, service_rate = 1 / mu;
+        
         if(m == 0){
             if(t < 1 / lambda)
                 answer = 0;
             else if(t < ti){
-                answer = (int) (Math.floor(t / arrival_rate) - Math.floor((t / service_rate) - (arrival_rate / service_rate)));
+                answer = (int) (EPS + Math.floor(t / arrival_time) - Math.floor((t / service_time) - (arrival_time / service_time)));
             }else{
                 answer = -1;
             }
@@ -194,7 +197,7 @@ public class Model1{
             if(lambda == mu)
                 answer = m;
             else if(t < ti)
-                answer = m + (int)(t / arrival_rate) - (int)(t / service_rate);
+                answer = m + (int)(t / arrival_time + EPS) - (int)(t / service_time + EPS);
             else 
                 answer = -1;
             
@@ -207,27 +210,25 @@ public class Model1{
 
     private static void calcTi(double lambda, double mu, int k_minus_1, int m) {
         int k = k_minus_1 + 1;
-        double arrival_rate = 1 / lambda, service_rate = 1 / mu;
-        
         
         if(m == 0){
-            int answer = (int)((k * arrival_rate * service_rate - arrival_rate * arrival_rate)
-                                       /(service_rate - arrival_rate));
+            int answer = (int)(EPS + (k * arrival_time * service_time - arrival_time * arrival_time)
+                                       /(service_time - arrival_time));
 
-            for(double i = answer; i >= 0; i -= arrival_rate){
-                int res = (int) ((int)(i * lambda) - (int)((i - arrival_rate) / service_rate));
+            for(double i = answer; i >= 0; i -= arrival_time){
+                int res = (int) (EPS + (int)(i * lambda) - (int)((i - arrival_time) / service_time));
 //                System.out.println(i + ": " + res);
                 if(res != k) break;
                 answer = (int)i;
             }
             ti = answer;
         }else{
-            int answer = (int)((m * service_rate * arrival_rate) / (arrival_rate - service_rate));
+            int answer = (int)(EPS + (m * service_time * arrival_time) / (arrival_time - service_time));
             
-            for(int i = answer; i >= 0; i--){
-                int res = (int)((Math.floor(mu * i)) - Math.floor(lambda * i));
+            for(double i = answer; i >= 0; i -= arrival_time){
+                int res = (int)(EPS + (Math.floor(mu * i)) - Math.floor(lambda * i));
                 if(res != m) break;
-                answer = i;
+                answer = (int)i;
             }
             
             ti = answer;
@@ -236,7 +237,7 @@ public class Model1{
 
 
     private static boolean isMuMultipleOfLambda(double lambda, double mu) {
-        double res = mu / lambda;
+        double res = mu / lambda + EPS;
         return (int)res == res;
     }
     
