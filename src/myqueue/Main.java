@@ -206,13 +206,13 @@ public class Main extends Application {
         int k_minus_1, initial_number_M;
         if(!checkLambdaAndMu()) return;
         
-        lambda = Double.parseDouble(lambdaInput.getText());
-         mu = Double.parseDouble(muInput.getText());
+        lambda = Double.parseDouble(lambdaInput.getText().trim());
+         mu = Double.parseDouble(muInput.getText().trim());
         
         try{
             if(capacityK_minus1_input.getText().trim().length() == 0)
                 throw new NumberFormatException();
-            k_minus_1 = Integer.parseInt(capacityK_minus1_input.getText());
+            k_minus_1 = Integer.parseInt(capacityK_minus1_input.getText().trim());
             
             if(k_minus_1 < 0)
                 throw new NumberFormatException();
@@ -226,7 +226,7 @@ public class Main extends Application {
             if(initialNumberMInput.getText().trim().length() == 0)
                 initial_number_M = 0;
             else 
-                initial_number_M = Integer.parseInt(initialNumberMInput.getText());
+                initial_number_M = Integer.parseInt(initialNumberMInput.getText().trim());
             
             if(initial_number_M < 0)
                 throw  new NumberFormatException();
