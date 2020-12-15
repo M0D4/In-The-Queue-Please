@@ -88,6 +88,14 @@ public class Model1{
             nInput.setMaxWidth(200);
             tInput.setMaxWidth(200);
             
+        clearButton.setOnAction(e -> {
+            nInput.clear();
+            tInput.clear();
+            
+            answerN_of_t.setText("");
+            answerWq_of_n.setText("");
+        });
+        
         layout.getChildren().addAll(nLabel, nInput, tLabel, tInput, twoButtons, answerWq_of_n, answerN_of_t);
         Scene scene = new Scene(layout);
         window.setScene(scene);
