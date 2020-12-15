@@ -30,7 +30,7 @@ public class AlertBox {
         Button ok = new Button("Ok");
         ok.setOnAction(e -> window.close());
         
-        Image image = new Image("alert.png");
+        Image image = new Image("myqueue/alert.png");
          
         VBox layout = new VBox(20);
         layout.getChildren().addAll(new ImageView(image), label, ok);

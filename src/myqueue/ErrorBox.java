@@ -35,7 +35,7 @@ public class ErrorBox {
         Label message_label = new Label(message);
         message_label.setFont(new Font(18));
         
-        Image image = new Image("error.png");
+        Image image = new Image("myqueue/error.png");
         
         Button okButton = new Button("Ok");
         okButton.setOnAction(e -> window.close());
