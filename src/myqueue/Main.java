@@ -8,6 +8,7 @@ package myqueue;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -32,46 +33,45 @@ public class Main extends Application {
     private Button queryButton, graphButton, clearButton;
     private HBox hb;
     private ComboBox<String> modelBox;
+    private Alert errorAlert, infoAlert;
     
     @Override
     public void start(Stage primaryStage) {
         homeWindow = primaryStage;
-        homeWindow.setMinWidth(330);
-        homeWindow.setMinHeight(350);
+        homeWindow.setMinWidth(391);
+        homeWindow.setMinHeight(399);
+        homeWindow.setResizable(false);
 //        homeWindow.setOnCloseRequest(e -> System.out.println("width: " + homeWindow.getWidth() + ", Height: " + homeWindow.getHeight()));
         
         homeLayout = new GridPane();
         
         lambdaLabel = new Label("λ: ");
         lambdaInput = new TextField();
-        lambdaInput.setMaxWidth(200);
         
         muLabel = new Label("μ: ");
         muInput = new TextField();
-        muInput.setMaxWidth(200);
         
         capacityKLAbel = new Label("K: ");
         capacityKInput = new TextField();
-        capacityKInput.setMaxWidth(200);
         
         capacityK_minus1_label = new Label("K-1: ");
         capacityK_minus1_input = new TextField();
-        capacityK_minus1_input.setMaxWidth(200);
         
         serversCLabel = new Label("C: ");
         ServersCInput = new TextField();
-        ServersCInput.setMaxWidth(200);
         
         initialNumberMLabel = new Label("M: ");
         initialNumberMInput = new TextField();
-        initialNumberMInput.setMaxWidth(200);
+        
+        
+        setMaxWidthForInputs(260);
+        
         
         queryButton = new Button("Query");
         graphButton = new Button("Graph");
         clearButton = new Button("Clear");
                     
         setToolTips();
-        
         
         initModel(1);
         
@@ -121,7 +121,6 @@ public class Main extends Application {
         setConstraints();
         
         
-        
         homeLayout.getChildren().addAll(
          initialNumberMLabel,
          initialNumberMInput, 
@@ -134,8 +133,13 @@ public class Main extends Application {
          ServersCInput
         );
         
-        Scene scene = new Scene(homeLayout);
+        errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText(null);
         
+        infoAlert = new Alert(Alert.AlertType.INFORMATION);
+        infoAlert.setHeaderText(null);
+        
+        Scene scene = new Scene(homeLayout);
         homeWindow.setTitle("In The Queue, Please!");
         homeWindow.setScene(scene);
         homeWindow.show();
@@ -218,7 +222,8 @@ public class Main extends Application {
                 throw new NumberFormatException();
             
         }catch(NumberFormatException e){
-            ErrorBox.display("Error!", "You must enter a non-negative integer number for K-1");
+            errorAlert.setContentText("You must enter a non-negative integer number for K-1");
+            errorAlert.show();
             return;
         }
         
@@ -232,12 +237,14 @@ public class Main extends Application {
                 throw  new NumberFormatException();
             
         }catch(NumberFormatException e){
-            ErrorBox.display("Error!", "You must enter a non-negative integer number for M");
+              errorAlert.setContentText("You must enter a non-negative integer number for M");
+              errorAlert.show();
             return;
         }
         
         if(lambda > mu && initial_number_M != 0){
-            AlertBox.display("Alert", "M is ignored becuase λ is greater than μ");
+              infoAlert.setContentText("M is ignored becuase λ is greater than μ");
+              infoAlert.showAndWait();
             initial_number_M = 0;
         }
         
@@ -252,7 +259,8 @@ public class Main extends Application {
             if(Double.parseDouble(lambdaInput.getText().trim()) <= 0)
                 throw new NumberFormatException();
         }catch(NumberFormatException e){
-            ErrorBox.display("Error!", "You must enter a positive real number for λ");
+            errorAlert.setContentText("You must enter a positive real number for λ");
+            errorAlert.show();
             return false;
         }
         
@@ -262,7 +270,8 @@ public class Main extends Application {
             if(Double.parseDouble(muInput.getText().trim()) <= 0)
                 throw new NumberFormatException();
         }catch(NumberFormatException e){
-            ErrorBox.display("Error!", "You must enter a positive real number for μ");
+              errorAlert.setContentText("You must enter a positive real number for μ");
+              errorAlert.show();
             return false;
         }
         
@@ -304,12 +313,22 @@ public class Main extends Application {
         GridPane.setConstraints(hb, 1, 7);
     }
     
+    private void setMaxWidthForInputs(int width) {
+        lambdaInput.setMaxWidth(width);
+        muInput.setMaxWidth(width);
+        capacityKInput.setMaxWidth(width);
+        capacityK_minus1_input.setMaxWidth(width);
+        ServersCInput.setMaxWidth(width);
+        initialNumberMInput.setMaxWidth(width);
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
+
 
     
 }

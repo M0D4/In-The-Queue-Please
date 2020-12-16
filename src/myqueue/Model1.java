@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package myqueue;
 
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -24,17 +20,21 @@ import javafx.stage.Stage;
 public class Model1{
     static private Label nLabel, tLabel, answerWq_of_n, answerN_of_t;
     static private TextField nInput, tInput;
-    static private Button calculateButton, clearButton;
-    static private HBox twoButtons;
+    static private Button calculateButton, clearButton, closeButton;
+    static private HBox buttons;
     static private int n, t, ti = -1;
     static double arrival_time, service_time, EPS = 1e-17;
+    static private Alert errorAlert;
+    static private GridPane layout;
     
     public static void solve(double lambda, double mu, int capacityK_minus_1, int initialNumberM){
         
         Stage window = new Stage();
         window.setTitle("Query Model 1");
-        window.setHeight(300);
-        window.setWidth(300);
+        window.setHeight(239);
+        window.setWidth(427);
+        
+        window.setOnCloseRequest(e -> System.out.println("width: " + window.getWidth() + ", Height: " + window.getHeight()));
         
         nLabel = new Label("n: ");
         nInput = new TextField();
@@ -47,6 +47,7 @@ public class Model1{
         
         calculateButton = new Button("Calculate");
         clearButton = new Button("Clear");
+        closeButton = new Button("Close");
         
         setToolTips();
             
@@ -56,16 +57,16 @@ public class Model1{
             tInput.setPromptText("15");
             
         
-        GridPane layout = new GridPane();
+        layout = new GridPane();
         layout.setPadding(new Insets(8, 8, 8, 8));
-        layout.setHgap(2);
-        layout.setVgap(2);
-        layout.setAlignment(Pos.CENTER);
+        layout.setHgap(8);
+        layout.setVgap(8);
+//        layout.setAlignment(Pos.CENTER);
         
-        twoButtons = new HBox(8);
-        twoButtons.getChildren().addAll(calculateButton, clearButton);
-        twoButtons.setPadding(new Insets(8, 8, 8, 8));
-        twoButtons.setSpacing(5);
+        buttons = new HBox(8);
+        buttons.getChildren().addAll(calculateButton, clearButton, closeButton);
+        buttons.setPadding(new Insets(8, 8, 8, 8));
+        buttons.setSpacing(20);
         
         setConstrains();
         
@@ -84,9 +85,8 @@ public class Model1{
             }
         });
         
-        setMaxWidth:
-            nInput.setMaxWidth(200);
-            tInput.setMaxWidth(200);
+        setInputsWidth(210);
+            
             
         clearButton.setOnAction(e -> {
             nInput.clear();
@@ -96,20 +96,24 @@ public class Model1{
             answerWq_of_n.setText("");
         });
         
-        layout.getChildren().addAll(nLabel, nInput, tLabel, tInput, twoButtons, answerWq_of_n, answerN_of_t);
+        closeButton.setOnAction(e -> window.close());
+        
+        errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText(null);
+        
         Scene scene = new Scene(layout);
         window.setScene(scene);
         window.showAndWait();
     }
 
     private static void setConstrains() {
-        GridPane.setConstraints(nLabel, 0, 0);
-        GridPane.setConstraints(nInput, 1, 0);
-        GridPane.setConstraints(tLabel, 0, 1);
-        GridPane.setConstraints(tInput, 1, 1);
-        GridPane.setConstraints(answerWq_of_n, 0, 2);
-        GridPane.setConstraints(answerN_of_t, 0, 3);
-        GridPane.setConstraints(twoButtons, 0, 4);
+        layout.add(nLabel, 0, 0, 1, 1);
+        layout.add(nInput, 1, 0, 1, 1);
+        layout.add(tLabel, 0, 1, 1, 1);
+        layout.add(tInput, 1, 1, 1, 1);
+        layout.add(answerWq_of_n, 0, 2, 2, 1);
+        layout.add(answerN_of_t, 0, 3, 2, 1);
+        layout.add(buttons, 1, 4, 3, 1);
     }
 
     private static void setToolTips() {
@@ -129,7 +133,8 @@ public class Model1{
             else 
                 n = Integer.parseInt(nInput.getText().trim());
         }catch(NumberFormatException e){
-            ErrorBox.display("Error!", "You must enter an integer number for n");
+            errorAlert.setContentText("You must enter an integer number for n");
+            errorAlert.show();
             return false;
         }
         
@@ -139,7 +144,8 @@ public class Model1{
             else
                 t = Integer.parseInt(tInput.getText().trim());
         }catch(NumberFormatException e){
-            ErrorBox.display("Error!", "You must enter an integer number for t");
+           errorAlert.setContentText("You must enter an integer number for t");
+           errorAlert.show();
             return false;
         }
         
@@ -247,6 +253,13 @@ public class Model1{
     private static boolean isMuMultipleOfLambda(double lambda, double mu) {
         double res = mu / lambda + EPS;
         return (int)res == res;
+    }
+
+    private static void setInputsWidth(int width) {
+        nInput.setMaxWidth(width);   
+        tInput.setMaxWidth(width);
+        nInput.setMinWidth(width);   
+        tInput.setMinWidth(width);
     }
     
     
