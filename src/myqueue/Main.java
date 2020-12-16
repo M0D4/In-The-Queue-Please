@@ -307,9 +307,7 @@ public class Main extends Application {
             }
             else DeterministicModel.display(lambda, mu, k_minus_1, initial_number_M);
             return;
-        }
-        
-        if(model == 2){
+        }else if(model == 2){
             if(mu <= lambda){
                 StochasticModel.display("M/M/1", 0, 0, 0, 0);
             }else{
@@ -325,8 +323,7 @@ public class Main extends Application {
         if(model == 4 || model == 5){
             if(!check(ServersCInput, 'C')) return;
             c = Integer.parseInt(ServersCInput.getText().trim());
-        }
-        if(model == 3){
+        }else if(model == 3){
             if(mu <= lambda){
                 StochasticModel.display("M/M/1/K", 0, 0, 0, 0);
             }else{
@@ -335,9 +332,14 @@ public class Main extends Application {
             }
             return;
         }
-        
         if(model == 4){
             
+        }else if(model == 5){
+            if(!check(capacityKInput, 'K')) return;
+            if(!check(ServersCInput, 'C')) return;
+            
+            ModelMMCK m = new ModelMMCK(lambda, mu, k, c);
+            StochasticModel.display("M/M/C/K", m.getL(), m.getLq(), m.getW(), m.getWq());
         }
     }
 
