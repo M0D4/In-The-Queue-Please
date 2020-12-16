@@ -33,7 +33,7 @@ public class Main extends Application {
     private Label modelLabel, lambdaLabel, muLabel, capacityKLAbel, capacityK_minus1_label, serversCLabel, initialNumberMLabel;
     private TextField lambdaInput, muInput, capacityKInput, capacityK_minus1_input, initialNumberMInput, ServersCInput;
     private Button queryButton, graphButton, clearButton;
-    private HBox buttons;
+    private HBox buttonsBox;
     private ComboBox<String> modelBox;
     private Alert errorAlert, infoAlert;
     
@@ -121,9 +121,9 @@ public class Main extends Application {
         homeLayout.setVgap(10);
         homeLayout.getChildren().add(modelBox);
         
-        buttons = new HBox(queryButton, graphButton, clearButton);
-        buttons.setPadding(new Insets(8, 8, 8, 8));
-        buttons.setSpacing(20);
+        buttonsBox = new HBox(queryButton, graphButton, clearButton);
+        buttonsBox.setPadding(new Insets(8, 8, 8, 8));
+        buttonsBox.setSpacing(20);
         
         setConstraints();
         
@@ -134,7 +134,7 @@ public class Main extends Application {
          modelLabel, lambdaLabel,
          muLabel, capacityKLAbel,
          capacityK_minus1_label,
-         serversCLabel, buttons,
+         serversCLabel, buttonsBox,
          lambdaInput, muInput,
          capacityKInput, capacityK_minus1_input,
          ServersCInput
@@ -270,7 +270,7 @@ public class Main extends Application {
         GridPane.setConstraints(capacityKInput, 1, 5);
         GridPane.setConstraints(serversCLabel, 0, 6);
         GridPane.setConstraints(ServersCInput, 1, 6);
-        GridPane.setConstraints(buttons, 1, 7);
+        GridPane.setConstraints(buttonsBox, 1, 7);
     }
     
     private void setMaxWidthForInputs(int width) {
