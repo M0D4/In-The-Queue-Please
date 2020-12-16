@@ -31,9 +31,9 @@ public class StochasticModel {
         closeButton.setOnAction(e -> window.close());
         
         WLabel = new Label(String.format("Expected waiting time in the system: %.3f second(s)", W));
-        WqLabel = new Label(String.format("Expected waiting time in the system: %.3f second(s)", Wq));
-        LLabel = new Label("Expected number of the customers in the system: " + L);
-        LqLabel = new Label("Expected number of the customers in the queue: " + Lq);
+        WqLabel = new Label(String.format("Expected waiting time in the queue: %.3f second(s)", Wq));
+        LLabel = new Label(String.format("Expected number of the customers in the system: %d customer(s)" , L));
+        LqLabel = new Label(String.format("Expected number of the customers in the queue: %d customer(s)" , Lq));
         
         layout = new GridPane();
         layout.setPadding(new Insets(8, 8, 8, 8));
@@ -54,7 +54,7 @@ public class StochasticModel {
         layout.add(LqLabel, 0, 1, 20, 1);
         layout.add(WLabel, 0, 2, 20, 1);
         layout.add(WqLabel, 0, 3, 20, 1);
-        layout.add(closeButton, 13, 4, 1, 1);
+        layout.add(closeButton, 15, 4, 1, 1);
     }
     
 }

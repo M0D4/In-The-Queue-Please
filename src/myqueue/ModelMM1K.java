@@ -23,7 +23,7 @@ public class ModelMM1K {
         
         Wq = W - (1 / mu);
         
-        Lq = (long) Math.round(lambda_dash * Wq);
+        Lq = (long) Math.round(lambda_dash * Wq + EPS);
     }
 
     public double getW() {
@@ -49,7 +49,7 @@ public class ModelMM1K {
         double numerator = 1 - (k + 1) * rhoPowK + k * rhoPowK * rho;
         double denominator = (1 - rho) * (1 - rhoPowK * rho);
         
-        return (long)Math.round(rho * (numerator / denominator));
+        return (long)Math.round(rho * (numerator / denominator) + EPS);
     }
 
     private double calcLambda_dash(double lambda, int k) {

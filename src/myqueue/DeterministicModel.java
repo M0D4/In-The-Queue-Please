@@ -2,7 +2,6 @@ package myqueue;
 
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -62,7 +61,6 @@ public class DeterministicModel{
         layout.setPadding(new Insets(8, 8, 8, 8));
         layout.setHgap(8);
         layout.setVgap(8);
-//        layout.setAlignment(Pos.CENTER);
         
         buttons = new HBox(8);
         buttons.getChildren().addAll(calculateButton, clearButton, closeButton);

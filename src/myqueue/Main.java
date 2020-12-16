@@ -334,8 +334,12 @@ public class Main extends Application {
         double mu = Double.parseDouble(muInput.getText().trim());
         int k = 0, c = 0;
         if(model == 2){
-            ModelMM1 m = new ModelMM1(lambda, mu);
-            StochasticModel.display("M/M/1", m.getL(), m.getLq(), m.getW(), m.getWq());
+            if(mu >= lambda){
+                StochasticModel.display("M/M/1", 0, 0, 0, 0);
+            }else{
+                ModelMM1 m = new ModelMM1(lambda, mu);
+                StochasticModel.display("M/M/1", m.getL(), m.getLq(), m.getW(), m.getWq());
+            }
             return;
         }
         if(model == 3 || model == 5) {
@@ -347,8 +351,12 @@ public class Main extends Application {
             c = Integer.parseInt(ServersCInput.getText().trim());
         }
         if(model == 3){
-            ModelMM1K m = new ModelMM1K(lambda, mu, k);
-            StochasticModel.display("M/M/1/K", m.getL(), m.getLq(), m.getW(), m.getWq());
+            if(mu >= lambda){
+                StochasticModel.display("M/M/1/K", 0, 0, 0, 0);
+            }else{
+                ModelMM1K m = new ModelMM1K(lambda, mu, k);
+                StochasticModel.display("M/M/1/K", m.getL(), m.getLq(), m.getW(), m.getWq());
+            }
             return;
         }
         
