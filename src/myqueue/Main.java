@@ -37,11 +37,15 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        StochasticModel.display("M/M/1", 5, 5, 5, 5);
         homeWindow = primaryStage;
         homeWindow.setMinWidth(391);
         homeWindow.setMinHeight(399);
         homeWindow.setResizable(false);
-//        homeWindow.setOnCloseRequest(e -> System.out.println("width: " + homeWindow.getWidth() + ", Height: " + homeWindow.getHeight()));
+        homeWindow.setOnCloseRequest(e ->{
+            System.out.println("width: " + homeWindow.getWidth() + ", Height: " + homeWindow.getHeight());
+            homeWindow.close();
+        });
         
         homeLayout = new GridPane();
         
@@ -248,7 +252,7 @@ public class Main extends Application {
             initial_number_M = 0;
         }
         
-        Model1.solve(lambda, mu, k_minus_1, initial_number_M);
+        DeterministicModel.solve(lambda, mu, k_minus_1, initial_number_M);
 
     }
     

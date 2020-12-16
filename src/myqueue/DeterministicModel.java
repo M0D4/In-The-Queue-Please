@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  *
  * @author Moustafa Mohamed
  */
-public class Model1{
+public class DeterministicModel{
     static private Label nLabel, tLabel, answerWq_of_n, answerN_of_t;
     static private TextField nInput, tInput;
     static private Button calculateButton, clearButton, closeButton;
@@ -26,10 +26,11 @@ public class Model1{
     static double arrival_time, service_time, EPS = 1e-17;
     static private Alert errorAlert;
     static private GridPane layout;
+    static private Stage window;
     
     public static void solve(double lambda, double mu, int capacityK_minus_1, int initialNumberM){
         
-        Stage window = new Stage();
+        window = new Stage();
         window.setTitle("Query Model 1");
         window.setHeight(239);
         window.setWidth(427);
@@ -261,6 +262,5 @@ public class Model1{
         nInput.setMinWidth(width);   
         tInput.setMinWidth(width);
     }
-    
     
 }
