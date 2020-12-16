@@ -24,7 +24,7 @@ public class StochasticModel {
     private static Button closeButton;
     
     
-    public static void display(String model, long L, long Lq, double W, double Wq){
+    public static void display(String title, long L, long Lq, double W, double Wq){
         window = new Stage();
         
         closeButton = new Button("Close");
@@ -40,16 +40,16 @@ public class StochasticModel {
         layout.setVgap(10);
         layout.setHgap(10);
         
-        setConstralongs();
+        setConstraints();
         
         
         Scene scene = new Scene(layout);
-        window.setTitle(model);
+        window.setTitle(title);
         window.setScene(scene);
         window.showAndWait();
     }
 
-    private static void setConstralongs() {
+    private static void setConstraints() {
         layout.add(LLabel, 0, 0, 20, 1);
         layout.add(LqLabel, 0, 1, 20, 1);
         layout.add(WLabel, 0, 2, 20, 1);
