@@ -106,8 +106,9 @@ public class Main extends Application {
         queryButton.setOnAction(e -> {
             int selected_model = modelBox.getSelectionModel().getSelectedIndex() + 1;
             
-            if(selected_model == 1){
-                queryModel1();
+            if(selected_model == 1) queryModel1();
+            else{
+                solveModel(selected_model);
             }
         });
         
@@ -214,7 +215,7 @@ public class Main extends Application {
         if(!checkLambdaAndMu()) return;
         
         lambda = Double.parseDouble(lambdaInput.getText().trim());
-         mu = Double.parseDouble(muInput.getText().trim());
+        mu = Double.parseDouble(muInput.getText().trim());
         
         try{
             if(capacityK_minus1_input.getText().trim().length() == 0)
@@ -330,6 +331,27 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void solveModel(int model) {
+        if(!checkLambdaAndMu()) return;
+        double lambda = Double.parseDouble(lambdaInput.getText().trim());
+        double mu = Double.parseDouble(muInput.getText().trim());
+        int k, c;
+        if(model == 2){
+            
+        }else if(model == 3){
+            try{
+                if(capacityKInput.getText().trim().length() == 0)
+                    throw new NumberFormatException();
+                k = Integer.parseInt(capacityKInput.getText().trim());
+            }catch(NumberFormatException e){
+                errorAlert.setContentText("You must enter a non-negative integer number for K");
+                return;
+            }
+            ModelMM1K m = new ModelMM1K(lambda, mu, k);
+            StochasticModel.display("M/M/1/K", m.getL(), m.getLq(), m.getW(), m.getWq());
+        }
     }
 
 

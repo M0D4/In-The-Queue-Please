@@ -24,14 +24,14 @@ public class StochasticModel {
     private static Button closeButton;
     
     
-    public static void display(String model, int L, int Lq, int W, int Wq){
+    public static void display(String model, long L, long Lq, double W, double Wq){
         window = new Stage();
         
         closeButton = new Button("Close");
         closeButton.setOnAction(e -> window.close());
         
-        WLabel = new Label("Expected waiting time in the system: " + W);
-        WqLabel = new Label("Expected waiting time in the queue: " + Wq);
+        WLabel = new Label(String.format("Expected waiting time in the system: %.3f second(s)", W));
+        WqLabel = new Label(String.format("Expected waiting time in the system: %.3f second(s)", Wq));
         LLabel = new Label("Expected number of the customers in the system: " + L);
         LqLabel = new Label("Expected number of the customers in the queue: " + Lq);
         
@@ -40,7 +40,7 @@ public class StochasticModel {
         layout.setVgap(10);
         layout.setHgap(10);
         
-        setConstraints();
+        setConstralongs();
         
         
         Scene scene = new Scene(layout);
@@ -49,7 +49,7 @@ public class StochasticModel {
         window.showAndWait();
     }
 
-    private static void setConstraints() {
+    private static void setConstralongs() {
         layout.add(LLabel, 0, 0, 20, 1);
         layout.add(LqLabel, 0, 1, 20, 1);
         layout.add(WLabel, 0, 2, 20, 1);
