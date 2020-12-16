@@ -31,7 +31,7 @@ public class Main extends Application {
     private Label modelLabel, lambdaLabel, muLabel, capacityKLAbel, capacityK_minus1_label, serversCLabel, initialNumberMLabel;
     private TextField lambdaInput, muInput, capacityKInput, capacityK_minus1_input, initialNumberMInput, ServersCInput;
     private Button queryButton, graphButton, clearButton;
-    private HBox hb;
+    private HBox buttons;
     private ComboBox<String> modelBox;
     private Alert errorAlert, infoAlert;
     
@@ -118,9 +118,9 @@ public class Main extends Application {
         homeLayout.setVgap(10);
         homeLayout.getChildren().add(modelBox);
         
-        hb = new HBox(queryButton, graphButton, clearButton);
-        hb.setPadding(new Insets(8, 8, 8, 8));
-        hb.setSpacing(20);
+        buttons = new HBox(queryButton, graphButton, clearButton);
+        buttons.setPadding(new Insets(8, 8, 8, 8));
+        buttons.setSpacing(20);
         
         setConstraints();
         
@@ -131,7 +131,7 @@ public class Main extends Application {
          modelLabel, lambdaLabel,
          muLabel, capacityKLAbel,
          capacityK_minus1_label,
-         serversCLabel, hb,
+         serversCLabel, buttons,
          lambdaInput, muInput,
          capacityKInput, capacityK_minus1_input,
          ServersCInput
@@ -314,7 +314,7 @@ public class Main extends Application {
         GridPane.setConstraints(capacityKInput, 1, 5);
         GridPane.setConstraints(serversCLabel, 0, 6);
         GridPane.setConstraints(ServersCInput, 1, 6);
-        GridPane.setConstraints(hb, 1, 7);
+        GridPane.setConstraints(buttons, 1, 7);
     }
     
     private void setMaxWidthForInputs(int width) {
@@ -326,34 +326,70 @@ public class Main extends Application {
         initialNumberMInput.setMaxWidth(width);
     }
     
+
+    private void solveModel(int model) {
+        if(!checkLambdaAndMu()) return;
+        
+        double lambda = Double.parseDouble(lambdaInput.getText().trim());
+        double mu = Double.parseDouble(muInput.getText().trim());
+        int k = 0, c = 0;
+        if(model == 2){
+            
+            
+            return;
+        }
+        if(model == 3 || model == 5) {
+            if(!checkK()) return;
+            k = Integer.parseInt(capacityKInput.getText().trim());   
+        }
+        if(model == 4 || model == 5){
+            if(!checkC()) return;
+            c = Integer.parseInt(ServersCInput.getText().trim());
+        }
+        if(model == 3){
+            ModelMM1K m = new ModelMM1K(lambda, mu, k);
+            StochasticModel.display("M/M/1/K", m.getL(), m.getLq(), m.getW(), m.getWq());
+            return;
+        }
+        
+        if(model == 4){
+            
+        }
+    }
+
+    private boolean checkK() {
+        try{
+            if(capacityKInput.getText().trim().length() == 0)
+                throw new NumberFormatException();
+            if(Integer.parseInt(capacityKInput.getText().trim()) < 0)
+                throw new NumberFormatException();
+        }catch(NumberFormatException e){
+            errorAlert.setContentText("You must enter a non-negative integer number for K");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkC() {
+        try{
+            if(ServersCInput.getText().trim().length() == 0)
+                throw new NumberFormatException();
+            if(Integer.parseInt(ServersCInput.getText().trim()) <= 0)
+                throw new NumberFormatException();
+        }catch(NumberFormatException e){
+            errorAlert.setContentText("You must enter a positive integer number for C");
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
-
-    private void solveModel(int model) {
-        if(!checkLambdaAndMu()) return;
-        double lambda = Double.parseDouble(lambdaInput.getText().trim());
-        double mu = Double.parseDouble(muInput.getText().trim());
-        int k, c;
-        if(model == 2){
-            
-        }else if(model == 3){
-            try{
-                if(capacityKInput.getText().trim().length() == 0)
-                    throw new NumberFormatException();
-                k = Integer.parseInt(capacityKInput.getText().trim());
-            }catch(NumberFormatException e){
-                errorAlert.setContentText("You must enter a non-negative integer number for K");
-                return;
-            }
-            ModelMM1K m = new ModelMM1K(lambda, mu, k);
-            StochasticModel.display("M/M/1/K", m.getL(), m.getLq(), m.getW(), m.getWq());
-        }
-    }
-
-
     
 }
