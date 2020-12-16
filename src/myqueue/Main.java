@@ -343,11 +343,11 @@ public class Main extends Application {
             return;
         }
         if(model == 3 || model == 5) {
-            if(!checkK()) return;
+            if(!check(capacityKInput, 'K')) return;
             k = Integer.parseInt(capacityKInput.getText().trim());   
         }
         if(model == 4 || model == 5){
-            if(!checkC()) return;
+            if(!check(ServersCInput, 'C')) return;
             c = Integer.parseInt(ServersCInput.getText().trim());
         }
         if(model == 3){
@@ -365,28 +365,14 @@ public class Main extends Application {
         }
     }
 
-    private boolean checkK() {
+    private boolean check(TextField txt, char choice) {
         try{
-            if(capacityKInput.getText().trim().length() == 0)
+            if(txt.getText().trim().length() == 0)
                 throw new NumberFormatException();
-            if(Integer.parseInt(capacityKInput.getText().trim()) < 0)
+            if(Integer.parseInt(txt.getText().trim()) <= 0)
                 throw new NumberFormatException();
         }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter a non-negative integer number for K");
-            errorAlert.show();
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkC() {
-        try{
-            if(ServersCInput.getText().trim().length() == 0)
-                throw new NumberFormatException();
-            if(Integer.parseInt(ServersCInput.getText().trim()) <= 0)
-                throw new NumberFormatException();
-        }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter a positive integer number for C");
+            errorAlert.setContentText("You must enter a positive integer number for "+choice);
             errorAlert.show();
             return false;
         }
