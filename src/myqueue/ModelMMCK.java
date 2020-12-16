@@ -94,7 +94,9 @@ public class ModelMMCK {
         return lambda * (1 - p(k));
     }
     private long fact(int c){
-        if(c == 1) return 1;
-        return c * fact(c-1);
+        long factorial = 1;
+        for(int i=2; i<=c; i++) 
+            factorial *= i;
+        return factorial;
     }
 }
