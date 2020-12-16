@@ -339,7 +339,8 @@ public class Main extends Application {
         double mu = Double.parseDouble(muInput.getText().trim());
         int k, c;
         if(model == 2){
-            
+            ModelMM1 m = new ModelMM1(lambda, mu);
+            StochasticModel.display("M/M/1", m.getL(), m.getLq(), m.getW(), m.getWq());
         }else if(model == 3){
             try{
                 if(capacityKInput.getText().trim().length() == 0)
