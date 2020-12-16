@@ -373,6 +373,7 @@ public class Main extends Application {
                 throw new NumberFormatException();
         }catch(NumberFormatException e){
             errorAlert.setContentText("You must enter a non-negative integer number for K");
+            errorAlert.show();
             return false;
         }
         return true;
@@ -386,6 +387,7 @@ public class Main extends Application {
                 throw new NumberFormatException();
         }catch(NumberFormatException e){
             errorAlert.setContentText("You must enter a positive integer number for C");
+            errorAlert.show();
             return false;
         }
         return true;
