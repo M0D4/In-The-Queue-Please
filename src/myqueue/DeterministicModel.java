@@ -20,17 +20,18 @@ public class DeterministicModel{
     static private Label nLabel, tLabel, answerWq_of_n, answerN_of_t;
     static private TextField nInput, tInput;
     static private Button calculateButton, clearButton, closeButton;
-    static private HBox buttons;
-    static private int n, t, Wq;
+    static private HBox buttonsBox;
+    static private int n, t;
+    static private double Wq;
     static private Alert errorAlert;
     static private GridPane layout;
     static private Stage window;
-    static private double EPS = 1e-17;
+    private static final double EPS = 1e-17;
     
     public static void display(double lambda, double mu, int capacityK_minus_1, int initialNumberM){
         
         window = new Stage();
-        window.setTitle("D/D/1/" + capacityK_minus_1 + (initialNumberM > 0 ? "/"+ initialNumberM : ""));
+        window.setTitle("D/D/1/" + capacityK_minus_1 + (initialNumberM > 0 ? ("/"+ initialNumberM) : ""));
         window.setHeight(239);
         window.setWidth(427);
         
@@ -62,10 +63,10 @@ public class DeterministicModel{
         layout.setHgap(8);
         layout.setVgap(8);
         
-        buttons = new HBox(8);
-        buttons.getChildren().addAll(calculateButton, clearButton, closeButton);
-        buttons.setPadding(new Insets(8, 8, 8, 8));
-        buttons.setSpacing(20);
+        buttonsBox = new HBox(8);
+        buttonsBox.getChildren().addAll(calculateButton, clearButton, closeButton);
+        buttonsBox.setPadding(new Insets(8, 8, 8, 8));
+        buttonsBox.setSpacing(20);
         
         setConstrains();
         
@@ -91,7 +92,7 @@ public class DeterministicModel{
                 else answerN_of_t.setText("");
                 
                 if(n != -1){
-                    double Wq = m.calcWq(n);
+                    Wq = m.calcWq(n);
                     if(initialNumberM == 0){
                         if(Wq == -1){
                             double service_time = 1 / mu, arrival_time = 1 / lambda;
@@ -139,7 +140,7 @@ public class DeterministicModel{
         layout.add(tInput, 1, 1, 1, 1);
         layout.add(answerWq_of_n, 0, 2, 2, 1);
         layout.add(answerN_of_t, 0, 3, 2, 1);
-        layout.add(buttons, 1, 4, 3, 1);
+        layout.add(buttonsBox, 1, 4, 3, 1);
     }
 
     private static void setToolTips() {

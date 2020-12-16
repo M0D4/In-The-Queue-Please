@@ -5,6 +5,7 @@
  */
 package myqueue;
 
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 /**
  *
@@ -303,7 +305,12 @@ public class Main extends Application {
                 initial_number_M = 0;
             }
             if(graph){
-                Graph.display();
+                ModelDD1K1 m = new ModelDD1K1(lambda, mu, k_minus_1, initial_number_M);
+                ArrayList<Pair<Integer, Integer>> points = new ArrayList<>();
+                for(int i = 0; i <= 30; i++){
+                    points.add(new Pair<Integer, Integer>(i, (int)m.calcNt(i)));
+                }
+                Graph.display(points);
             }
             else DeterministicModel.display(lambda, mu, k_minus_1, initial_number_M);
             return;

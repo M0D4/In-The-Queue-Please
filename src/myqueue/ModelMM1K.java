@@ -8,7 +8,8 @@ public class ModelMM1K {
     private double W, Wq;
     private long L, Lq;
     
-    private double rho, EPS = 1e-17, lambda_dash, rhoPowK;
+    private double rho, lambda_dash, rhoPowK;
+    private final double EPS = 1e-17;
     
     public ModelMM1K(double lambda, double mu, int k){
         rho = lambda / mu;
