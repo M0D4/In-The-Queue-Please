@@ -222,11 +222,11 @@ public class Main extends Application {
                 throw new NumberFormatException();
             k_minus_1 = Integer.parseInt(capacityK_minus1_input.getText().trim());
             
-            if(k_minus_1 < 0)
+            if(k_minus_1 <= 0)
                 throw new NumberFormatException();
             
         }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter a non-negative integer number for K-1");
+            errorAlert.setContentText("You must enter a positive integer number for K-1");
             errorAlert.show();
             return;
         }
@@ -247,8 +247,8 @@ public class Main extends Application {
         }
         
         if(lambda > mu && initial_number_M != 0){
-              infoAlert.setContentText("M is ignored becuase λ is greater than μ");
-              infoAlert.showAndWait();
+            infoAlert.setContentText("M is ignored becuase λ is greater than μ");
+            infoAlert.showAndWait();
             initial_number_M = 0;
         }
         
@@ -351,7 +351,7 @@ public class Main extends Application {
             c = Integer.parseInt(ServersCInput.getText().trim());
         }
         if(model == 3){
-            if(mu >= lambda){
+            if(mu <= lambda){
                 StochasticModel.display("M/M/1/K", 0, 0, 0, 0);
             }else{
                 ModelMM1K m = new ModelMM1K(lambda, mu, k);

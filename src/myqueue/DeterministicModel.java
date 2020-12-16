@@ -30,7 +30,7 @@ public class DeterministicModel{
     public static void solve(double lambda, double mu, int capacityK_minus_1, int initialNumberM){
         
         window = new Stage();
-        window.setTitle("Query Model 1");
+        window.setTitle("D/D/1/" + capacityK_minus_1);
         window.setHeight(239);
         window.setWidth(427);
         
