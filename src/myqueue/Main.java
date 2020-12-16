@@ -37,7 +37,6 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        StochasticModel.display("M/M/1", 5, 5, 5, 5);
         homeWindow = primaryStage;
         homeWindow.setMinWidth(391);
         homeWindow.setMinHeight(399);
