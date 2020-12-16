@@ -106,12 +106,13 @@ public class Main extends Application {
         queryButton.setOnAction(e -> {
             int selected_model = modelBox.getSelectionModel().getSelectedIndex() + 1;
             
-            if(selected_model == 1) queryModel1();
-            else{
-                solveModel(selected_model);
-            }
+            solveModel(selected_model, false);
         });
         
+        
+        graphButton.setOnAction(e -> {
+            solveModel(1, true);
+        });
         
         homeLayout.setPadding(new Insets(8, 8, 8, 8));
         homeLayout.setHgap(10);
@@ -209,53 +210,6 @@ public class Main extends Application {
         ServersCInput.setDisable(status);
     }
     
-    private void queryModel1(){
-        double lambda, mu;
-        int k_minus_1, initial_number_M;
-        if(!checkLambdaAndMu()) return;
-        
-        lambda = Double.parseDouble(lambdaInput.getText().trim());
-        mu = Double.parseDouble(muInput.getText().trim());
-        
-        try{
-            if(capacityK_minus1_input.getText().trim().length() == 0)
-                throw new NumberFormatException();
-            k_minus_1 = Integer.parseInt(capacityK_minus1_input.getText().trim());
-            
-            if(k_minus_1 <= 0)
-                throw new NumberFormatException();
-            
-        }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter a positive integer number for K-1");
-            errorAlert.show();
-            return;
-        }
-        
-        try{
-            if(initialNumberMInput.getText().trim().length() == 0)
-                initial_number_M = 0;
-            else 
-                initial_number_M = Integer.parseInt(initialNumberMInput.getText().trim());
-            
-            if(initial_number_M < 0)
-                throw  new NumberFormatException();
-            
-        }catch(NumberFormatException e){
-              errorAlert.setContentText("You must enter a non-negative integer number for M");
-              errorAlert.show();
-            return;
-        }
-        
-        if(lambda > mu && initial_number_M != 0){
-            infoAlert.setContentText("M is ignored becuase λ is greater than μ");
-            infoAlert.showAndWait();
-            initial_number_M = 0;
-        }
-        
-        DeterministicModel.solve(lambda, mu, k_minus_1, initial_number_M);
-
-    }
-    
     private boolean checkLambdaAndMu(){
         try{
             if(lambdaInput.getText().trim().length() == 0)
@@ -327,12 +281,34 @@ public class Main extends Application {
     }
     
 
-    private void solveModel(int model) {
+    private void solveModel(int model, boolean graph) {
         if(!checkLambdaAndMu()) return;
         
         double lambda = Double.parseDouble(lambdaInput.getText().trim());
         double mu = Double.parseDouble(muInput.getText().trim());
-        int k = 0, c = 0;
+        
+        int k = 0, c = 0, k_minus_1 = 0, initial_number_M = 0;
+        
+        
+        if(model == 1){
+            if(!checkK_minus_1()) return;
+            if(!checkInitial_M()) return;
+            
+            k_minus_1 = Integer.parseInt(capacityK_minus1_input.getText().trim());
+            initial_number_M = Integer.parseInt(initialNumberMInput.getText().trim());
+            
+            if(lambda > mu && initial_number_M != 0){
+                infoAlert.setContentText("M is ignored becuase λ is greater than μ");
+                infoAlert.showAndWait();
+                initial_number_M = 0;
+            }
+            if(graph){
+                Graph.display();
+            }
+            else DeterministicModel.display(lambda, mu, k_minus_1, initial_number_M);
+            return;
+        }
+        
         if(model == 2){
             if(mu <= lambda){
                 StochasticModel.display("M/M/1", 0, 0, 0, 0);
@@ -393,6 +369,37 @@ public class Main extends Application {
         return true;
     }
     
+    private boolean checkK_minus_1(){
+        try{
+            if(capacityK_minus1_input.getText().trim().length() == 0)
+                throw new NumberFormatException();
+            if(Integer.parseInt(capacityK_minus1_input.getText().trim()) <= 0)
+                throw new NumberFormatException();
+            
+        }catch(NumberFormatException e){
+            errorAlert.setContentText("You must enter a positive integer number for K-1");
+            errorAlert.show();
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean  checkInitial_M(){
+        try{
+            if(initialNumberMInput.getText().trim().length() == 0)
+                initialNumberMInput.setText("0");
+           
+             if(Integer.parseInt(initialNumberMInput.getText().trim()) < 0)
+                throw  new NumberFormatException();
+            
+        }catch(NumberFormatException e){
+            errorAlert.setContentText("You must enter a non-negative integer number for M");
+            errorAlert.show();
+            return false;
+        }        
+        return true;
+    }
     
     
     /**
