@@ -11,7 +11,7 @@ package myqueue;
  */
 public class ModelMMCK {
     private double W, Wq, p0, lambda, mu;
-    private long L, Lq;
+    private double L, Lq;
     private int k, c;
     
     private double r, rho, lambda_dash, rhoPowK;
@@ -43,10 +43,10 @@ public class ModelMMCK {
     public double getWq() {
         return Wq;
     }
-    public long getL() {
+    public double getL() {
         return L;
     }
-    public long getLq() {
+    public double getLq() {
         return Lq;
     }
     
@@ -59,13 +59,13 @@ public class ModelMMCK {
         }
         return Math.round(getLq() + c - p0 * sum);
     }
-    private long calcLq(){
+    private double calcLq(){
         double ans = Math.pow(rho, k-c) * (k + 1.0 - c) * (1.0 - rho);
         ans += Math.pow(rho, k + 1.0 - c);
         ans = 1.0 - ans;
         ans *= p0 * rho * Math.pow(r, c);
         ans /= ((1.0 - rho) * (1.0 - rho)) * fact(c);
-        return Math.round(ans);
+        return (ans);
     }
     private double calcW(){
         return (double)L / lambda_dash;

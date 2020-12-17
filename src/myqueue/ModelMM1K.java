@@ -6,7 +6,7 @@ package myqueue;
  */
 public class ModelMM1K {
     private double W, Wq;
-    private long L, Lq;
+    private double L, Lq;
     
     private double rho, lambda_dash, rhoPowK;
     private final double EPS = 1e-17;
@@ -24,7 +24,7 @@ public class ModelMM1K {
         
         Wq = W - (1 / mu);
         
-        Lq = (long) Math.round(lambda_dash * Wq + EPS);
+        Lq = lambda_dash * Wq + EPS;
     }
 
     public double getW() {
@@ -35,22 +35,22 @@ public class ModelMM1K {
         return Wq;
     }
 
-    public long getL() {
+    public double getL() {
         return L;
     }
 
-    public long getLq() {
+    public double getLq() {
         return Lq;
     }
 
-    private long calcL(int k) {
+    private double calcL(int k) {
         if(rho == 1){
             return k / 2;
         }
         double numerator = 1 - (k + 1) * rhoPowK + k * rhoPowK * rho;
         double denominator = (1 - rho) * (1 - rhoPowK * rho);
         
-        return (long)Math.round(rho * (numerator / denominator) + EPS);
+        return rho * (numerator / denominator) + EPS;
     }
 
     private double calcLambda_dash(double lambda, int k) {
