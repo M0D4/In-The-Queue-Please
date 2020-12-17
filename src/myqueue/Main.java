@@ -340,6 +340,10 @@ public class Main extends Application {
             return;
         }
         if(model == 4){
+         if(mu>=lambda)
+             StochasticModel.display("M/M/C", 0,0,0,0);
+         
+         
             
         }else if(model == 5){
             if(!check(capacityKInput, 'K')) return;
@@ -402,7 +406,8 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+      
     }
-    
+  
     
 }
