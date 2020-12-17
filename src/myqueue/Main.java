@@ -330,7 +330,8 @@ public class Main extends Application {
         if(model == 4 || model == 5){
             if(!check(ServersCInput, 'C')) return;
             c = Integer.parseInt(ServersCInput.getText().trim());
-        }else if(model == 3){
+        }
+        if(model == 3){
             if(mu <= lambda){
                 StochasticModel.display("M/M/1/K", 0, 0, 0, 0);
             }else{
@@ -340,9 +341,13 @@ public class Main extends Application {
             return;
         }
         if(model == 4){
+           
          if(mu>=lambda)
              StochasticModel.display("M/M/C", 0,0,0,0);
-         
+         else {
+             ModelMMC m = new ModelMMC(lambda,mu,c);
+             StochasticModel.display("M/M/C", m.getL(), m.getLq(),m.getW(),m.getWq());
+         }
          
             
         }else if(model == 5){
