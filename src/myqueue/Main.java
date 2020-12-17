@@ -317,12 +317,8 @@ public class Main extends Application {
             else DeterministicModel.display(lambda, mu, k_minus_1, initial_number_M);
             return;
         }else if(model == 2){
-            if(mu >= lambda){
-                StochasticModel.display("M/M/1", 0, 0, 0, 0);
-            }else{
-                ModelMM1 m = new ModelMM1(lambda, mu);
-                StochasticModel.display("M/M/1", m.getL(), m.getLq(), m.getW(), m.getWq());
-            }
+            ModelMM1 m = new ModelMM1(lambda, mu);
+            StochasticModel.display("M/M/1", Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
             return;
         }
         if(model == 3 || model == 5) {
@@ -335,26 +331,23 @@ public class Main extends Application {
         }
         switch (model) {
             case 3:
-                if(mu >= lambda){
-                    StochasticModel.display("M/M/1/K", 0, 0, 0, 0);
-                }else{
+                {
                     ModelMM1K m = new ModelMM1K(lambda, mu, k);
-                    StochasticModel.display("M/M/1/K", Math.round(m.getL()), Math.round(m.getLq()), m.getW(), m.getWq());
-                }   break;
+                    StochasticModel.display("M/M/1/K", Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
+                }
+                break;
             case 4:
-                if(mu >= lambda)
-                    StochasticModel.display("M/M/C", 0,0,0,0);
-                else{
+                {
                     ModelMMC m = new ModelMMC(lambda, mu, c);
-                    StochasticModel.display("M/M/C", Math.round(m.getL()), Math.round(m.getLq()), m.getW(), m.getWq());
-                }   break;
+                    StochasticModel.display("M/M/C", Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
+                }
+                break;
             case 5:
-                if(mu >= lambda){
-                    StochasticModel.display("M/M/C/K", 0, 0, 0, 0);
-                }else{
+                {
                     ModelMMCK m = new ModelMMCK(lambda, mu, k, c);
-                    StochasticModel.display("M/M/C/K", Math.round(m.getL()), Math.round(m.getLq()), m.getW(), m.getWq());
-                }   break;
+                    StochasticModel.display("M/M/C/K", Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
+                }   
+                break;
             default:
                 break;
         }
@@ -405,8 +398,7 @@ public class Main extends Application {
         }        
         return true;
     }
-    
-    
+        
     /**
      * @param args the command line arguments
      */
