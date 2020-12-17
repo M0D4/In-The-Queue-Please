@@ -346,9 +346,9 @@ public class Main extends Application {
            
          if(mu>=lambda)
              StochasticModel.display("M/M/C", 0,0,0,0);
-         else {
+          {
              ModelMMC m = new ModelMMC(lambda,mu,c);
-             StochasticModel.display("M/M/C", m.getL(), m.getLq(),m.getW(),m.getWq());
+             StochasticModel.display("M/M/C",Math.round(m.getL()),Math.round( m.getLq()),m.getW(),m.getWq());
          }
          return;
             
