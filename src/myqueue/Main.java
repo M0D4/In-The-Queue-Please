@@ -6,6 +6,8 @@
 package myqueue;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -19,6 +21,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 /**
  *
@@ -36,6 +41,7 @@ public class Main extends Application {
     private HBox buttonsBox;
     private ComboBox<String> modelBox;
     private Alert errorAlert, infoAlert;
+    private ScriptEngine engine;
     
     @Override
     public void start(Stage primaryStage) {
@@ -110,12 +116,20 @@ public class Main extends Application {
         queryButton.setOnAction(e -> {
             int selected_model = modelBox.getSelectionModel().getSelectedIndex() + 1;
             
-            solveModel(selected_model, false);
+            try {
+                solveModel(selected_model, false);
+            } catch (ScriptException ex) {
+            
+            }
         });
         
         
         graphButton.setOnAction(e -> {
-            solveModel(1, true);
+            try {
+                solveModel(1, true);
+            } catch (ScriptException ex) {
+            
+            }
         });
         
         homeLayout.setPadding(new Insets(8, 8, 8, 8));
@@ -147,6 +161,10 @@ public class Main extends Application {
         
         infoAlert = new Alert(Alert.AlertType.INFORMATION);
         infoAlert.setHeaderText(null);
+        
+        
+        engine = new ScriptEngineManager().getEngineByName("JavaScript");
+        
         
         Scene scene = new Scene(homeLayout);
         homeWindow.setTitle("In The Queue, Please!");
@@ -214,32 +232,6 @@ public class Main extends Application {
         ServersCInput.setDisable(status);
     }
     
-    private boolean checkLambdaAndMu(){
-        try{
-            if(lambdaInput.getText().trim().length() == 0)
-                throw new NumberFormatException();
-            if(Double.parseDouble(lambdaInput.getText().trim()) <= 0)
-                throw new NumberFormatException();
-        }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter a positive real number for λ");
-            errorAlert.show();
-            return false;
-        }
-        
-        try{
-            if(muInput.getText().trim().length() == 0)
-                throw new NumberFormatException();
-            if(Double.parseDouble(muInput.getText().trim()) <= 0)
-                throw new NumberFormatException();
-        }catch(NumberFormatException e){
-              errorAlert.setContentText("You must enter a positive real number for μ");
-              errorAlert.show();
-            return false;
-        }
-        
-        return true;
-    }
-    
     
     private void setToolTips(){
         lambdaLabel.setTooltip(new Tooltip("Inter-arrival rate"));
@@ -285,11 +277,11 @@ public class Main extends Application {
     }
     
 
-    private void solveModel(int model, boolean graph) {
+    private void solveModel(int model, boolean graph) throws ScriptException {
         if(!checkLambdaAndMu()) return;
         
-        double lambda = Double.parseDouble(lambdaInput.getText().trim());
-        double mu = Double.parseDouble(muInput.getText().trim());
+        double lambda = Double.parseDouble(String.valueOf(engine.eval(lambdaInput.getText().trim())));
+        double mu = Double.parseDouble(String.valueOf(engine.eval(muInput.getText().trim())));
         
         int k = 0, c = 0, k_minus_1 = 0, initial_number_M = 0;
         
@@ -298,8 +290,8 @@ public class Main extends Application {
             if(!checkK_minus_1()) return;
             if(!checkInitial_M()) return;
             
-            k_minus_1 = Integer.parseInt(capacityK_minus1_input.getText().trim());
-            initial_number_M = Integer.parseInt(initialNumberMInput.getText().trim());
+            k_minus_1 = Integer.parseInt(String.valueOf(engine.eval(capacityK_minus1_input.getText().trim())));
+            initial_number_M = Integer.parseInt(String.valueOf(engine.eval(initialNumberMInput.getText().trim())));
             
             if(lambda > mu && initial_number_M != 0){
                 infoAlert.setContentText("M is ignored becuase λ is greater than μ");
@@ -323,11 +315,11 @@ public class Main extends Application {
         }
         if(model == 3 || model == 5) {
             if(!check(capacityKInput, 'K')) return;
-            k = Integer.parseInt(capacityKInput.getText().trim());   
+            k = Integer.parseInt(String.valueOf(engine.eval(capacityKInput.getText().trim())));
         }
         if(model == 4 || model == 5){
             if(!check(ServersCInput, 'C')) return;
-            c = Integer.parseInt(ServersCInput.getText().trim());
+            c = Integer.parseInt(String.valueOf(engine.eval(ServersCInput.getText().trim())));
         }
         switch (model) {
             case 3:
@@ -352,15 +344,53 @@ public class Main extends Application {
                 break;
         }
     }
-
+    
+    private boolean checkLambdaAndMu(){
+        try{
+            if(lambdaInput.getText().trim().length() == 0)
+                throw new NumberFormatException();
+            double value = Double.parseDouble(String.valueOf(engine.eval(lambdaInput.getText().trim())));
+            if(value <= 0)
+                throw new NumberFormatException();
+            if(!Double.isFinite(value) || value == Double.NaN)
+                throw new ScriptException("");
+        }catch(NumberFormatException e){
+            errorAlert.setContentText("You must enter a positive real number for λ");
+            errorAlert.show();
+            return false;
+        }catch(ScriptException se){
+            errorAlert.setContentText("Please enter a valid input for λ");
+            errorAlert.show();
+            return false;
+        }
+        
+        try{
+            if(muInput.getText().trim().length() == 0)
+                throw new NumberFormatException();
+            double value = Double.parseDouble(String.valueOf(engine.eval(muInput.getText().trim())));
+            if(value <= 0)
+                throw new NumberFormatException();
+            if(!Double.isFinite(value) || value == Double.NaN)
+                throw new NumberFormatException();
+        }catch(NumberFormatException | ScriptException e){
+            errorAlert.setContentText("μ must be a positive real number less than Infinity");
+            errorAlert.show();
+            return false;
+        }
+        
+        return true;
+    }
+    
     private boolean check(TextField txt, char choice) {
         try{
             if(txt.getText().trim().length() == 0)
                 throw new NumberFormatException();
-            if(Integer.parseInt(txt.getText().trim()) <= 0)
+            
+            int value = Integer.parseInt(String.valueOf(engine.eval(txt.getText().trim())));
+            if(value <= 0)
                 throw new NumberFormatException();
-        }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter a positive integer number for "+choice);
+        }catch(NumberFormatException | ScriptException e){
+            errorAlert.setContentText(choice + " must be a positive integer less than Infinity");
             errorAlert.show();
             return false;
         }
@@ -371,10 +401,13 @@ public class Main extends Application {
         try{
             if(capacityK_minus1_input.getText().trim().length() == 0)
                 throw new NumberFormatException();
-            if(Integer.parseInt(capacityK_minus1_input.getText().trim()) <= 0)
+            
+            int value = Integer.parseInt(String.valueOf(engine.eval(capacityK_minus1_input.getText().trim())));
+            
+            if(value <= 0)
                 throw new NumberFormatException();
             
-        }catch(NumberFormatException e){
+        }catch(NumberFormatException | ScriptException e){
             errorAlert.setContentText("You must enter a positive integer number for K-1");
             errorAlert.show();
             return false;
@@ -388,10 +421,11 @@ public class Main extends Application {
             if(initialNumberMInput.getText().trim().length() == 0)
                 initialNumberMInput.setText("0");
            
-             if(Integer.parseInt(initialNumberMInput.getText().trim()) < 0)
-                throw  new NumberFormatException();
+            int value = Integer.parseInt(String.valueOf(engine.eval(initialNumberMInput.getText().trim())));
+            if(Integer.parseInt(initialNumberMInput.getText().trim()) < 0)
+               throw  new NumberFormatException();
             
-        }catch(NumberFormatException e){
+        }catch(NumberFormatException | ScriptException e){
             errorAlert.setContentText("You must enter a non-negative integer number for M");
             errorAlert.show();
             return false;
