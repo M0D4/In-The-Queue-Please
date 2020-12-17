@@ -43,6 +43,8 @@ public class Main extends Application {
         homeWindow.setMinWidth(391);
         homeWindow.setMinHeight(399);
         homeWindow.setResizable(false);
+        
+        
         homeWindow.setOnCloseRequest(e ->{
             System.out.println("width: " + homeWindow.getWidth() + ", Height: " + homeWindow.getHeight());
             homeWindow.close();
@@ -308,14 +310,14 @@ public class Main extends Application {
                 ModelDD1K1 m = new ModelDD1K1(lambda, mu, k_minus_1, initial_number_M);
                 ArrayList<Pair<Integer, Integer>> points = new ArrayList<>();
                 for(int i = 0; i <= 30; i++){
-                    points.add(new Pair<Integer, Integer>(i, (int)m.calcNt(i)));
+                    points.add(new Pair<>(i, (int)m.calcNt(i)));
                 }
                 Graph.display(points);
             }
             else DeterministicModel.display(lambda, mu, k_minus_1, initial_number_M);
             return;
         }else if(model == 2){
-            if(mu <= lambda){
+            if(mu >= lambda){
                 StochasticModel.display("M/M/1", 0, 0, 0, 0);
             }else{
                 ModelMM1 m = new ModelMM1(lambda, mu);
@@ -331,7 +333,7 @@ public class Main extends Application {
             if(!check(ServersCInput, 'C')) return;
             c = Integer.parseInt(ServersCInput.getText().trim());
         }else if(model == 3){
-            if(mu <= lambda){
+            if(mu >= lambda){
                 StochasticModel.display("M/M/1/K", 0, 0, 0, 0);
             }else{
                 ModelMM1K m = new ModelMM1K(lambda, mu, k);
@@ -345,8 +347,12 @@ public class Main extends Application {
             if(!check(capacityKInput, 'K')) return;
             if(!check(ServersCInput, 'C')) return;
             
-            ModelMMCK m = new ModelMMCK(lambda, mu, k, c);
-            StochasticModel.display("M/M/C/K", m.getL(), m.getLq(), m.getW(), m.getWq());
+            if(mu >= lambda){
+                StochasticModel.display("M/M/C/K", 0, 0, 0, 0);
+            }else{
+                ModelMMCK m = new ModelMMCK(lambda, mu, k, c);
+                StochasticModel.display("M/M/C/K", m.getL(), m.getLq(), m.getW(), m.getWq());
+            }
         }
     }
 
