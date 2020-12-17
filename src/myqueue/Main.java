@@ -33,7 +33,7 @@ public class Main extends Application {
     private Label modelLabel, lambdaLabel, muLabel, capacityKLAbel, capacityK_minus1_label, serversCLabel, initialNumberMLabel;
     private TextField lambdaInput, muInput, capacityKInput, capacityK_minus1_input, initialNumberMInput, ServersCInput;
     private Button queryButton, graphButton, clearButton;
-    private HBox buttons;
+    private HBox buttonsBox;
     private ComboBox<String> modelBox;
     private Alert errorAlert, infoAlert;
     
@@ -43,6 +43,8 @@ public class Main extends Application {
         homeWindow.setMinWidth(391);
         homeWindow.setMinHeight(399);
         homeWindow.setResizable(false);
+        
+        
         homeWindow.setOnCloseRequest(e ->{
             System.out.println("width: " + homeWindow.getWidth() + ", Height: " + homeWindow.getHeight());
             homeWindow.close();
@@ -121,9 +123,9 @@ public class Main extends Application {
         homeLayout.setVgap(10);
         homeLayout.getChildren().add(modelBox);
         
-        buttons = new HBox(queryButton, graphButton, clearButton);
-        buttons.setPadding(new Insets(8, 8, 8, 8));
-        buttons.setSpacing(20);
+        buttonsBox = new HBox(queryButton, graphButton, clearButton);
+        buttonsBox.setPadding(new Insets(8, 8, 8, 8));
+        buttonsBox.setSpacing(20);
         
         setConstraints();
         
@@ -134,7 +136,7 @@ public class Main extends Application {
          modelLabel, lambdaLabel,
          muLabel, capacityKLAbel,
          capacityK_minus1_label,
-         serversCLabel, buttons,
+         serversCLabel, buttonsBox,
          lambdaInput, muInput,
          capacityKInput, capacityK_minus1_input,
          ServersCInput
@@ -270,7 +272,7 @@ public class Main extends Application {
         GridPane.setConstraints(capacityKInput, 1, 5);
         GridPane.setConstraints(serversCLabel, 0, 6);
         GridPane.setConstraints(ServersCInput, 1, 6);
-        GridPane.setConstraints(buttons, 1, 7);
+        GridPane.setConstraints(buttonsBox, 1, 7);
     }
     
     private void setMaxWidthForInputs(int width) {
@@ -308,14 +310,14 @@ public class Main extends Application {
                 ModelDD1K1 m = new ModelDD1K1(lambda, mu, k_minus_1, initial_number_M);
                 ArrayList<Pair<Integer, Integer>> points = new ArrayList<>();
                 for(int i = 0; i <= 30; i++){
-                    points.add(new Pair<Integer, Integer>(i, (int)m.calcNt(i)));
+                    points.add(new Pair<>(i, (int)m.calcNt(i)));
                 }
                 Graph.display(points);
             }
             else DeterministicModel.display(lambda, mu, k_minus_1, initial_number_M);
             return;
         }else if(model == 2){
-            if(mu <= lambda){
+            if(mu >= lambda){
                 StochasticModel.display("M/M/1", 0, 0, 0, 0);
             }else{
                 ModelMM1 m = new ModelMM1(lambda, mu);
@@ -348,14 +350,18 @@ public class Main extends Application {
              ModelMMC m = new ModelMMC(lambda,mu,c);
              StochasticModel.display("M/M/C", m.getL(), m.getLq(),m.getW(),m.getWq());
          }
-         
+         return;
             
         }else if(model == 5){
             if(!check(capacityKInput, 'K')) return;
             if(!check(ServersCInput, 'C')) return;
             
-            ModelMMCK m = new ModelMMCK(lambda, mu, k, c);
-            StochasticModel.display("M/M/C/K", m.getL(), m.getLq(), m.getW(), m.getWq());
+            if(mu >= lambda){
+                StochasticModel.display("M/M/C/K", 0, 0, 0, 0);
+            }else{
+                ModelMMCK m = new ModelMMCK(lambda, mu, k, c);
+                StochasticModel.display("M/M/C/K", m.getL(), m.getLq(), m.getW(), m.getWq());
+            }
         }
     }
 
