@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +29,7 @@ public class StochasticModel {
         window = new Stage();
         
         closeButton = new Button("Close");
+//        closeButton.getStyleClass().add("button-close");
         closeButton.setOnAction(e -> window.close());
         
         WLabel = new Label(String.format("Expected waiting time in the system: %.3f second(s)", W));
@@ -44,17 +46,27 @@ public class StochasticModel {
         
         
         Scene scene = new Scene(layout);
+        scene.getStylesheets().add(StochasticModel.class.getResource("Light.css").toExternalForm());
+        
+        setFontSize(20);
         window.setTitle(title);
         window.setScene(scene);
         window.showAndWait();
     }
 
     private static void setConstraints() {
-        layout.add(LLabel, 0, 0, 20, 1);
-        layout.add(LqLabel, 0, 1, 20, 1);
-        layout.add(WLabel, 0, 2, 20, 1);
-        layout.add(WqLabel, 0, 3, 20, 1);
-        layout.add(closeButton, 15, 4, 1, 1);
+        layout.add(LLabel, 0, 0, 25, 1);
+        layout.add(LqLabel, 0, 1, 25, 1);
+        layout.add(WLabel, 0, 2, 25, 1);
+        layout.add(WqLabel, 0, 3, 25, 1);
+        layout.add(closeButton, 23, 4, 1, 1);
+    }
+
+    private static void setFontSize(int size) {
+        WLabel.setFont(new Font(size));
+        WqLabel.setFont(new Font(size));
+        LLabel.setFont(new Font(size));
+        LqLabel.setFont(new Font(size));
     }
     
 }

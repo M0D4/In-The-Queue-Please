@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -32,8 +33,8 @@ public class DeterministicModel{
         
         window = new Stage();
         window.setTitle("D/D/1/" + capacityK_minus_1 + (initialNumberM > 0 ? ("/"+ initialNumberM) : ""));
-        window.setHeight(239);
-        window.setWidth(427);
+        window.setHeight(255);
+        window.setWidth(590);
         
         window.setOnCloseRequest(e -> System.out.println("width: " + window.getWidth() + ", Height: " + window.getHeight()));
         
@@ -50,7 +51,6 @@ public class DeterministicModel{
         clearButton = new Button("Clear");
         closeButton = new Button("Close");
         
-        setToolTips();
             
         
         PromptText:
@@ -68,7 +68,6 @@ public class DeterministicModel{
         buttonsBox.setPadding(new Insets(8, 8, 8, 8));
         buttonsBox.setSpacing(20);
         
-        setConstrains();
         
         ModelDD1K1 m = new ModelDD1K1(lambda, mu, capacityK_minus_1, initialNumberM);
                 
@@ -112,7 +111,10 @@ public class DeterministicModel{
             }
         });
         
+        setFontSize(18);
         setInputsWidth(210);
+        setConstrains();
+        setToolTips();
             
             
         clearButton.setOnAction(e -> {
@@ -129,18 +131,19 @@ public class DeterministicModel{
         errorAlert.setHeaderText(null);
         
         Scene scene = new Scene(layout);
+        scene.getStylesheets().add(DeterministicModel.class.getResource("Light.css").toExternalForm());
         window.setScene(scene);
         window.showAndWait();
     }
 
     private static void setConstrains() {
         layout.add(nLabel, 0, 0, 1, 1);
-        layout.add(nInput, 1, 0, 1, 1);
+        layout.add(nInput, 1, 0, 15, 1);
         layout.add(tLabel, 0, 1, 1, 1);
-        layout.add(tInput, 1, 1, 1, 1);
-        layout.add(answerWq_of_n, 0, 2, 2, 1);
-        layout.add(answerN_of_t, 0, 3, 2, 1);
-        layout.add(buttonsBox, 1, 4, 3, 1);
+        layout.add(tInput, 1, 1, 15, 1);
+        layout.add(answerWq_of_n, 0, 2, 15, 1);
+        layout.add(answerN_of_t, 0, 3, 15, 1);
+        layout.add(buttonsBox, 12, 4, 1, 1);
     }
 
     private static void setToolTips() {
@@ -185,4 +188,10 @@ public class DeterministicModel{
         tInput.setMinWidth(width);
     }
     
+    private static void setFontSize(int size) {
+        nLabel.setFont(new Font(size));
+        tLabel.setFont(new Font(size));
+        answerN_of_t.setFont(new Font(size));
+        answerWq_of_n.setFont(new Font(size));
+    }
 }

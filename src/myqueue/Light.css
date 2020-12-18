@@ -1,0 +1,22 @@
+/* 
+    Created on : Dec 18, 2020, 3:22:48 PM
+    Author     : Moustafa Mohamed
+*/
+
+
+
+.button{
+     -fx-background-radius: 6; 
+     -fx-text-fill: white;
+     /*-fx-background-color: linear-gradient(#D66D75, #E29587);*/
+/*     -fx-background-color: linear-gradient(#C33764, #1D2671);*/
+     -fx-background-color: linear-gradient(#4ecdc4, #556270);
+}
+
+.combo-box{
+     -fx-background-color: linear-gradient(#4ecdc4, #556270);
+}
+
+.button-close{
+    -fx-font-size: 20;
+}

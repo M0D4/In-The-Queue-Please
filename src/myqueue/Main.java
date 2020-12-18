@@ -6,8 +6,6 @@
 package myqueue;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -19,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import javax.script.ScriptEngine;
@@ -83,8 +82,8 @@ public class Main extends Application {
         queryButton = new Button("Query");
         graphButton = new Button("Graph");
         clearButton = new Button("Clear");
+        clearButton.setId("clearButton");
                     
-        setToolTips();
         
         initModel(1);
         
@@ -141,6 +140,8 @@ public class Main extends Application {
         buttonsBox.setPadding(new Insets(8, 8, 8, 8));
         buttonsBox.setSpacing(20);
         
+        setToolTips();
+        setFontSize(20);
         setConstraints();
         
         
@@ -167,6 +168,7 @@ public class Main extends Application {
         
         
         Scene scene = new Scene(homeLayout);
+        scene.getStylesheets().add(Main.class.getResource("Light.css").toExternalForm());
         homeWindow.setTitle("In The Queue, Please!");
         homeWindow.setScene(scene);
         homeWindow.show();
@@ -408,7 +410,7 @@ public class Main extends Application {
                 throw new NumberFormatException();
             
         }catch(NumberFormatException | ScriptException e){
-            errorAlert.setContentText("You must enter a positive integer number for K-1");
+            errorAlert.setContentText("K-1 must be a positive integer number");
             errorAlert.show();
             return false;
         }
@@ -426,7 +428,7 @@ public class Main extends Application {
                throw  new NumberFormatException();
             
         }catch(NumberFormatException | ScriptException e){
-            errorAlert.setContentText("You must enter a non-negative integer number for M");
+            errorAlert.setContentText("M must be a non-negative integer number");
             errorAlert.show();
             return false;
         }        
@@ -439,6 +441,16 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
       
+    }
+
+    private void setFontSize(int size) {
+       lambdaLabel.setFont(new Font(size));
+       muLabel.setFont(new Font(size));
+       capacityK_minus1_label.setFont(new Font(size));
+       initialNumberMLabel.setFont(new Font(size));
+       capacityKLAbel.setFont(new Font(size));
+       serversCLabel.setFont(new Font(size));
+       modelLabel.setFont(new Font(size-3));
     }
   
     
