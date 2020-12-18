@@ -306,7 +306,7 @@ public class Main extends Application {
                 for(int i = 0; i <= 30; i++){
                     points.add(new Pair<>(i, (int)m.calcNt(i)));
                 }
-                Graph.display(points);
+                Graph.display("D/D/1/" + k_minus_1 ,points);
             }
             else DeterministicModel.display(lambda, mu, k_minus_1, initial_number_M);
             return;
@@ -327,19 +327,19 @@ public class Main extends Application {
             case 3:
                 {
                     ModelMM1K m = new ModelMM1K(lambda, mu, k);
-                    StochasticModel.display("M/M/1/K", Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
+                    StochasticModel.display("M/M/1/" + k, Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
                 }
                 break;
             case 4:
                 {
                     ModelMMC m = new ModelMMC(lambda, mu, c);
-                    StochasticModel.display("M/M/C", Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
+                    StochasticModel.display("M/M/" + c, Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
                 }
                 break;
             case 5:
                 {
                     ModelMMCK m = new ModelMMCK(lambda, mu, k, c);
-                    StochasticModel.display("M/M/C/K", Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
+                    StochasticModel.display("M/M/" + c + "/" + k, Math.max(0, Math.round(m.getL())), Math.max(0, Math.round(m.getLq())), Math.max(0, m.getW()), Math.max(0, m.getWq()));
                 }   
                 break;
             default:
