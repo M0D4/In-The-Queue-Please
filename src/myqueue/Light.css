@@ -3,8 +3,6 @@
     Author     : Moustafa Mohamed
 */
 
-
-
 .button{
      -fx-background-radius: 6; 
      -fx-text-fill: white;
@@ -19,4 +17,10 @@
 
 .button-close{
     -fx-font-size: 20;
+}
+
+.text-field{
+    -fx-font-family: "arial";
+    -fx-font-size: 16px;
+    -fx-font-style: italic;
 }
