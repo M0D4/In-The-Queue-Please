@@ -33,7 +33,7 @@ public class DeterministicModel{
         
         window = new Stage();
         window.setTitle("D/D/1/" + capacityK_minus_1 + (initialNumberM > 0 ? ("/"+ initialNumberM) : ""));
-        window.setHeight(255);
+        window.setHeight(263);
         window.setWidth(590);
         
         window.setOnCloseRequest(e -> System.out.println("width: " + window.getWidth() + ", Height: " + window.getHeight()));
