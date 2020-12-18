@@ -4,15 +4,15 @@
 */
 
 .button{
-     -fx-background-radius: 6; 
-     -fx-text-fill: white;
-     /*-fx-background-color: linear-gradient(#D66D75, #E29587);*/
-/*     -fx-background-color: linear-gradient(#C33764, #1D2671);*/
-     -fx-background-color: linear-gradient(#4ecdc4, #556270);
+    -fx-background-radius: 6; 
+    -fx-text-fill: white;
+    // -fx-background-color: linear-gradient(#D66D75, #E29587);
+    // -fx-background-color: linear-gradient(#C33764, #1D2671);
+    -fx-background-color: linear-gradient(#9acd32, #708090);
 }
 
 .combo-box{
-     -fx-background-color: linear-gradient(#4ecdc4, #556270);
+    -fx-background-color: linear-gradient(#9acd32, #708090);
 }
 
 .button-close{
@@ -20,7 +20,7 @@
 }
 
 .text-field{
-    -fx-font-family: "arial";
+    -fx-font-family: "Alegreya Sans SC";
     -fx-font-size: 16px;
-    -fx-font-style: italic;
+    // -fx-font-style: italic;
 }
