@@ -61,32 +61,28 @@ public class Main extends Application {
         lambdaLabel = new Label("λ: ");
         lambdaInput = new TextField();
         lambdaUnit = new Label(" customers/sec");
-        lambdaUnit.setFont(new Font(10));
         
         muLabel = new Label("μ: ");
         muInput = new TextField();
         muUnit = new Label(" customers/sec");
-        muUnit.setFont(new Font(10));
         
         capacityKLAbel = new Label("K: ");
         capacityKInput = new TextField();
         capacityKUnit = new Label(" customers");
-        capacityKUnit.setFont(new Font(10));
         
         capacityK_minus1_label = new Label("K-1: ");
         capacityK_minus1_input = new TextField();
         capacityK_minus1_Unit = new Label(" customers");
-        capacityK_minus1_Unit.setFont(new Font(10));
         
         serversCLabel = new Label("C: ");
         ServersCInput = new TextField();
         serversCUnit = new Label(" servers");
-        serversCUnit.setFont(new Font(10));
                 
         initialNumberMLabel = new Label("M: ");
         initialNumberMInput = new TextField();
         initialNumberMUnit = new Label(" customers");
-        initialNumberMUnit.setFont(new Font(10));
+        
+        
         
         setMaxWidthForInputs(260);
         
@@ -152,6 +148,7 @@ public class Main extends Application {
         buttonsBox.setSpacing(20);
         
         setToolTips();
+        setUnitSize(13);
         setFontSize(20);
         setConstraints();
         
@@ -453,13 +450,6 @@ public class Main extends Application {
         return true;
     }
         
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-      
-    }
 
     private void setFontSize(int size) {
        lambdaLabel.setFont(new Font(size));
@@ -470,6 +460,22 @@ public class Main extends Application {
        serversCLabel.setFont(new Font(size));
        modelLabel.setFont(new Font(size-3));
     }
+
+    private void setUnitSize(int size) {
+        lambdaUnit.setFont(new Font(size));
+        muUnit.setFont(new Font(size));
+        capacityKUnit.setFont(new Font(size));
+        capacityK_minus1_Unit.setFont(new Font(size));
+        serversCUnit.setFont(new Font(size));
+        initialNumberMUnit.setFont(new Font(size));
+    }
   
     
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+      
+    }
 }
