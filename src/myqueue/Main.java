@@ -35,6 +35,7 @@ public class Main extends Application {
     private GridPane homeLayout;
     private int last_model_selected = 0;
     private Label modelLabel, lambdaLabel, muLabel, capacityKLAbel, capacityK_minus1_label, serversCLabel, initialNumberMLabel;
+    private Label lambdaUnit, muUnit, capacityKUnit, capacityK_minus1_Unit, serversCUnit, initialNumberMUnit;
     private TextField lambdaInput, muInput, capacityKInput, capacityK_minus1_input, initialNumberMInput, ServersCInput;
     private Button queryButton, graphButton, clearButton;
     private HBox buttonsBox;
@@ -59,25 +60,35 @@ public class Main extends Application {
         
         lambdaLabel = new Label("λ: ");
         lambdaInput = new TextField();
+        lambdaUnit = new Label(" customers/sec");
+        lambdaUnit.setFont(new Font(10));
         
         muLabel = new Label("μ: ");
         muInput = new TextField();
+        muUnit = new Label(" customers/sec");
+        muUnit.setFont(new Font(10));
         
         capacityKLAbel = new Label("K: ");
         capacityKInput = new TextField();
+        capacityKUnit = new Label(" customers");
+        capacityKUnit.setFont(new Font(10));
         
         capacityK_minus1_label = new Label("K-1: ");
         capacityK_minus1_input = new TextField();
+        capacityK_minus1_Unit = new Label(" customers");
+        capacityK_minus1_Unit.setFont(new Font(10));
         
         serversCLabel = new Label("C: ");
         ServersCInput = new TextField();
-        
+        serversCUnit = new Label(" servers");
+        serversCUnit.setFont(new Font(10));
+                
         initialNumberMLabel = new Label("M: ");
         initialNumberMInput = new TextField();
-        
+        initialNumberMUnit = new Label(" customers");
+        initialNumberMUnit.setFont(new Font(10));
         
         setMaxWidthForInputs(260);
-        
         
         queryButton = new Button("Query");
         graphButton = new Button("Graph");
@@ -154,7 +165,8 @@ public class Main extends Application {
          serversCLabel, buttonsBox,
          lambdaInput, muInput,
          capacityKInput, capacityK_minus1_input,
-         ServersCInput
+         ServersCInput,
+         lambdaUnit, muUnit, capacityKUnit, capacityK_minus1_Unit, serversCUnit, initialNumberMUnit
         );
         
         errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -236,19 +248,19 @@ public class Main extends Application {
     
     
     private void setToolTips(){
-        lambdaLabel.setTooltip(new Tooltip("Inter-arrival rate"));
-        lambdaInput.setTooltip(new Tooltip("Inter-arrival rate"));
-        muLabel.setTooltip(new Tooltip("service rate"));
-        muInput.setTooltip(new Tooltip("service rate"));
-        capacityKLAbel.setTooltip(new Tooltip("capacity of the system"));
-        capacityKInput.setTooltip(new Tooltip("capacity of the system"));
-        capacityK_minus1_label.setTooltip(new Tooltip("capacity of the system"));
-        capacityK_minus1_input.setTooltip(new Tooltip("capacity of the system"));
-        serversCLabel.setTooltip(new Tooltip("Number of parallel servers"));
-        ServersCInput.setTooltip(new Tooltip("Number of parallel servers"));
-        initialNumberMInput.setTooltip(new Tooltip("Initial Number of customers"));
-        initialNumberMLabel.setTooltip(new Tooltip("Initial Number of customers"));
-        clearButton.setTooltip(new Tooltip("Clear inputs"));
+        lambdaLabel.setTooltip(new Tooltip("Inter-arrival Rate"));
+        lambdaInput.setTooltip(new Tooltip("Inter-arrival Rate"));
+        muLabel.setTooltip(new Tooltip("Service Rate"));
+        muInput.setTooltip(new Tooltip("Service Rate"));
+        capacityKLAbel.setTooltip(new Tooltip("Capacity Of The System"));
+        capacityKInput.setTooltip(new Tooltip("Capacity Of The System"));
+        capacityK_minus1_label.setTooltip(new Tooltip("Capacity Of The System"));
+        capacityK_minus1_input.setTooltip(new Tooltip("Capacity Of The System"));
+        serversCLabel.setTooltip(new Tooltip("Number Of Parallel Servers"));
+        ServersCInput.setTooltip(new Tooltip("Number Of Parallel Servers"));
+        initialNumberMInput.setTooltip(new Tooltip("Initial Number Of Customers"));
+        initialNumberMLabel.setTooltip(new Tooltip("Initial Number Of Customers"));
+        clearButton.setTooltip(new Tooltip("Clear Inputs"));
     }
     
     private void setConstraints() {
@@ -256,16 +268,22 @@ public class Main extends Application {
         GridPane.setConstraints(modelBox, 1, 0);
         GridPane.setConstraints(lambdaLabel, 0, 1);
         GridPane.setConstraints(lambdaInput, 1, 1);
+        GridPane.setConstraints(lambdaUnit, 2, 1);
         GridPane.setConstraints(muLabel, 0, 2);
         GridPane.setConstraints(muInput, 1, 2);
+        GridPane.setConstraints(muUnit, 2, 2);
         GridPane.setConstraints(capacityK_minus1_label, 0, 3);
         GridPane.setConstraints(capacityK_minus1_input, 1, 3);
+        GridPane.setConstraints(capacityK_minus1_Unit, 2, 3);
         GridPane.setConstraints(initialNumberMLabel, 0, 4);
         GridPane.setConstraints(initialNumberMInput, 1, 4);
+        GridPane.setConstraints(initialNumberMUnit, 2, 4);
         GridPane.setConstraints(capacityKLAbel, 0, 5);
         GridPane.setConstraints(capacityKInput, 1, 5);
+        GridPane.setConstraints(capacityKUnit, 2, 5);
         GridPane.setConstraints(serversCLabel, 0, 6);
         GridPane.setConstraints(ServersCInput, 1, 6);
+        GridPane.setConstraints(serversCUnit, 2, 6);
         GridPane.setConstraints(buttonsBox, 1, 7);
     }
     
