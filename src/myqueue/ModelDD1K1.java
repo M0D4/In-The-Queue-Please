@@ -44,9 +44,10 @@ public class ModelDD1K1 {
                 answer = 0;
             else if(t < ti){
                 answer = (int) (EPS + Math.floor(t / arrival_time) - Math.floor((t / service_time) - (arrival_time / service_time)));
-            }else{
+            }else if(isLambdaMultipleOfMu(lambda, mu)){
+                answer = k_minus_1;
+            }else 
                 answer = -1;
-            }
         }else{
             if(lambda == mu)
                 answer = initialNumberM;
@@ -84,8 +85,8 @@ public class ModelDD1K1 {
     }
 
 
-    private  boolean isMuMultipleOfLambda(double lambda, double mu) {
-        double res = mu / lambda + EPS;
+    private static boolean isLambdaMultipleOfMu(double lambda, double mu) {
+        double res = lambda / mu;
         return (int)res == res;
     }
 
@@ -102,7 +103,7 @@ public class ModelDD1K1 {
                 answer = -1;
             
             if(answer == -1){
-                if(isMuMultipleOfLambda(lambda, mu)){
+                if(isLambdaMultipleOfMu(lambda, mu)){
                      answer = ((service_time - arrival_time)*(lambda * ti - 2) + EPS);
                 }else{
                     answer = -1;

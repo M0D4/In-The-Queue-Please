@@ -77,9 +77,9 @@ public class DeterministicModel{
                 if(t != -1){
                     long nt = m.calcNt(t);
                     if(initialNumberM == 0){
-                        if(nt == -1)
+                        if(nt == -1){
                             answerN_of_t.setText(String.format("Number of customers at time %d will be either %d or %d customer(s).", t, (capacityK_minus_1), (capacityK_minus_1 - 1)));
-                        else
+                        }else
                             answerN_of_t.setText(String.format("Number of customers at time %d will be %d", t, nt));
                     }else{
                         if(nt == -1)

@@ -318,7 +318,7 @@ public class Main extends Application {
             if(graph){
                 ModelDD1K1 m = new ModelDD1K1(lambda, mu, k_minus_1, initial_number_M);
                 ArrayList<Pair<Integer, Integer>> points = new ArrayList<>();
-                for(int i = 0; i <= 30; i++){
+                for(int i = 0; i <= m.getTi() + 10; i++){
                     points.add(new Pair<>(i, (int)m.calcNt(i)));
                 }
                 Graph.display("D/D/1/" + k_minus_1 ,points);
