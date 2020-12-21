@@ -63,7 +63,7 @@ Example:
 ### Standard notations:
 
 Standard notations for queueing theory also uses these symbols:
-  * n: the number of customers in the system.
+  * n: the customer number in the system.
   * C: the number of parallel servers.
   * M: the initial number of customers.
 
@@ -71,7 +71,7 @@ Standard notations for queueing theory also uses these symbols:
 
 The understanding and prediction of the stochastic behavior of these queues will provide a theoretical insight into the dynamics of these shared resources and how they can be designed to provide better utilization. And the modeling and analysis of waiting queues/networks is the main implemented subject in this project.
 
-We implemented, using Java and JavaFX GUI, an the Deterministic and Stochastic Models:
+We implemented, using Java and JavaFX GUI, the Deterministic and Stochastic Models:
 
 * Model D/D/1/K-1
 * Model M/M/1
