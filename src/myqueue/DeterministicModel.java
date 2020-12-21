@@ -102,7 +102,7 @@ public class DeterministicModel{
                             answerWq_of_n.setText(String.format("Customer number %d will wait about %.3f second(s)", n, Wq));
                     }else{
                         if(n == 0)
-                            answerWq_of_n.setText(String.format("Customer number %d will wait about %.3f second(s) in average.", n, Wq));
+                            answerWq_of_n.setText(String.format("Customer number %d will wait about %.3f second(s) in average.", m, Wq));
                         else
                             answerWq_of_n.setText(String.format("Customer number %d will wait about %.3f second(s)", n, Wq));
                     }
@@ -161,8 +161,10 @@ public class DeterministicModel{
                 n = -1;
             else 
                 n = Integer.parseInt(nInput.getText().trim());
+            
+            if(n <= 0)  throw new NumberFormatException();
         }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter an integer number for n");
+            errorAlert.setContentText("You must enter a positive integer number for n");
             errorAlert.show();
             return false;
         }
@@ -172,9 +174,11 @@ public class DeterministicModel{
                 t = -1;
             else
                 t = Integer.parseInt(tInput.getText().trim());
+            
+            if(t < 0)  throw new NumberFormatException();
         }catch(NumberFormatException e){
-           errorAlert.setContentText("You must enter an integer number for t");
-           errorAlert.show();
+            errorAlert.setContentText("You must enter a non-negative integer number for t");
+            errorAlert.show();
             return false;
         }
         
