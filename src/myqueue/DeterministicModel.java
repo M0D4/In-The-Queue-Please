@@ -102,7 +102,7 @@ public class DeterministicModel{
                             answerWq_of_n.setText(String.format("Customer number %d will wait about %.3f second(s)", n, Wq));
                     }else{
                         if(n == 0)
-                            answerWq_of_n.setText(String.format("Customer number %d will wait about %.3f second(s) in average.", m, Wq));
+                            answerWq_of_n.setText(String.format("Customer number %d will wait about %.3f second(s) in average.", n, Wq));
                         else
                             answerWq_of_n.setText(String.format("Customer number %d will wait about %.3f second(s)", n, Wq));
                     }
