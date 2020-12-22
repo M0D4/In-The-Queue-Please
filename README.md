@@ -1,6 +1,6 @@
 # In-The-Queue-Please!
 
-## A Brief About Queuing Theory:
+## In Brief, About Queuing Theory:
 
 Queuing theory (or queueing theory) refers to the mathematical study of the formation, function, and congestion of waiting lines, or queues. The study of queues comes under a discipline of Operations Research called Queueing Theory and is a primary methodological framework for evaluating resource performance besides simulation. Queueing theory is generally considered a branch of operations research because the results are often used when making business decisions about the resources needed to provide a service.
 
