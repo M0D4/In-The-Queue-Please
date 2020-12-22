@@ -36,7 +36,7 @@ public class ModelDD1K1 {
         return ti;
     }
      
-     public long calcNt(int t) {
+     public long calcNt(double t) {
         long answer = 0;
         
         if(initialNumberM == 0){

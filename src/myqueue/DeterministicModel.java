@@ -13,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
@@ -26,8 +25,8 @@ public class DeterministicModel{
     static private TextField nInput, tInput;
     static private Button calculateButton, clearButton, closeButton;
     static private HBox buttonsBox;
-    static private int n, t;
-    static private double Wq;
+    static private int n;
+    static private double Wq, t;
     static private Alert errorAlert;
     static private GridPane layout;
     static private Stage window;
@@ -85,14 +84,14 @@ public class DeterministicModel{
                     long nt = m.calcNt(t);
                     if(initialNumberM == 0){
                         if(nt == -1){
-                            answerN_of_t.setText(String.format("Number of customers at time %d will be either %d or %d customer(s).", t, (capacityK_minus_1), (capacityK_minus_1 - 1)));
+                            answerN_of_t.setText(String.format("Number of customers at time %.3f will be either %d or %d customer(s).", t, (capacityK_minus_1), (capacityK_minus_1 - 1)));
                         }else
-                            answerN_of_t.setText(String.format("Number of customers at time %d will be %d", t, nt));
+                            answerN_of_t.setText(String.format("Number of customers at time %.3f will be %d", t, nt));
                     }else{
                         if(nt == -1)
-                            answerN_of_t.setText(String.format("Number of customers at time %d will be either 0 or 1 customer.", t));
+                            answerN_of_t.setText(String.format("Number of customers at time %.3f will be either 0 or 1 customer.", t));
                          else
-                            answerN_of_t.setText(String.format("Number of customers at time %d will be %d", t, nt));
+                            answerN_of_t.setText(String.format("Number of customers at time %.3f will be %d", t, nt));
                     }
                 }
                 else answerN_of_t.setText("");
@@ -168,7 +167,7 @@ public class DeterministicModel{
                 n = Integer.parseInt(String.valueOf(engine.eval(nInput.getText().trim())));
                 if(n < 0)  throw new NumberFormatException();
             }catch(NumberFormatException | ScriptException e){
-                errorAlert.setContentText("You must enter a positive integer number for n");
+                errorAlert.setContentText("You must enter a non-negative integer number for n");
                 errorAlert.show();
                 return false;
             }
@@ -176,11 +175,11 @@ public class DeterministicModel{
         
         if(tInput.getText().trim().length() != 0){
             try{
-                t = Integer.parseInt(String.valueOf(engine.eval(tInput.getText().trim())));
+                t = Double.parseDouble(String.valueOf(engine.eval(tInput.getText().trim())));
 
                 if(t < 0)  throw new NumberFormatException();
             }catch(NumberFormatException | ScriptException e){
-                errorAlert.setContentText("You must enter a non-negative integer number for t");
+                errorAlert.setContentText("You must enter a non-negative real number for t");
                 errorAlert.show();
                 return false;
             }
