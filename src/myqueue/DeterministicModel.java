@@ -12,6 +12,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 
 /**
  *
@@ -27,7 +31,9 @@ public class DeterministicModel{
     static private Alert errorAlert;
     static private GridPane layout;
     static private Stage window;
-    private static final double EPS = 1e-17;
+    static private final double EPS = 1e-17;
+    static private ScriptEngine engine;
+    
     
     public static void display(double lambda, double mu, int capacityK_minus_1, int initialNumberM){
         
@@ -71,6 +77,7 @@ public class DeterministicModel{
         
         ModelDD1K1 m = new ModelDD1K1(lambda, mu, capacityK_minus_1, initialNumberM);
                 
+        engine = new ScriptEngineManager().getEngineByName("JavaScript");
         
         calculateButton.setOnAction(e -> {
             if(checkNandT()){
@@ -156,32 +163,28 @@ public class DeterministicModel{
     
 
     private static boolean checkNandT() {
-        try{
-            if(nInput.getText().trim().length() == 0)
-                n = -1;
-            else 
-                n = Integer.parseInt(nInput.getText().trim());
-            
-            if(n <= 0)  throw new NumberFormatException();
-        }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter a positive integer number for n");
-            errorAlert.show();
-            return false;
-        }
+        if(nInput.getText().trim().length() != 0){
+            try{
+                n = Integer.parseInt(String.valueOf(engine.eval(nInput.getText().trim())));
+                if(n < 0)  throw new NumberFormatException();
+            }catch(NumberFormatException | ScriptException e){
+                errorAlert.setContentText("You must enter a positive integer number for n");
+                errorAlert.show();
+                return false;
+            }
+        }else n = -1;
         
-        try{
-            if(tInput.getText().trim().length() == 0)
-                t = -1;
-            else
-                t = Integer.parseInt(tInput.getText().trim());
-            
-            if(t < 0)  throw new NumberFormatException();
-        }catch(NumberFormatException e){
-            errorAlert.setContentText("You must enter a non-negative integer number for t");
-            errorAlert.show();
-            return false;
-        }
-        
+        if(tInput.getText().trim().length() != 0){
+            try{
+                t = Integer.parseInt(String.valueOf(engine.eval(tInput.getText().trim())));
+
+                if(t < 0)  throw new NumberFormatException();
+            }catch(NumberFormatException | ScriptException e){
+                errorAlert.setContentText("You must enter a non-negative integer number for t");
+                errorAlert.show();
+                return false;
+            }
+        }else t = -1;
         return true;
     }
     
