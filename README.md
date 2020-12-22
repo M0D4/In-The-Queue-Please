@@ -8,7 +8,7 @@ At its core, a queuing situation involves two parts:
 * Someone or something that requests a service—usually referred to as the customer, job, or request.
 * Someone or something that completes or delivers the services—usually referred to as the server.
 
-Queueing theory is used in software development for purposes such as project management kanban boards, inter-process communication message queues, and devops continuous deployment pipelines. A queueing model is constructed so that queue lengths and waiting time can be predicted.
+> Queueing theory is used in software development for purposes such as project management kanban boards, inter-process communication message queues, and devops continuous deployment pipelines. A queueing model is constructed so that queue lengths and waiting time can be predicted.
 
 ## Queueing theory notations:
 
@@ -89,9 +89,26 @@ Based on the model you choose and the inputs you have, the project can asnwer yo
 * Expected waiting time spent in the system (W).
 * Expected waiting time spent in the queue (Wq).
 
+## Screenshots:
+
+<div align="center">
+
+![Screenshot from 2020-12-22 15-29-14](https://user-images.githubusercontent.com/52632898/102894846-65341180-446c-11eb-8549-4be116aff37b.png)
+
+<hr />
+
+![Screenshot from 2020-12-22 15-31-00](https://user-images.githubusercontent.com/52632898/102894972-914f9280-446c-11eb-967c-6f6421fb8cd4.png)
+
+<hr />
+
+![Screenshot from 2020-12-22 15-33-45](https://user-images.githubusercontent.com/52632898/102894936-83017680-446c-11eb-8b93-970ac2b533a0.png)
+
+</div>
+
+
 ## Contributors:
 
-This project exists thanks to all the people who contribute: 
+> This project exists thanks to all wonderful people who contribute: 
 
 [![](https://avatars1.githubusercontent.com/u/51851957?s=80&v=4)](https://github.com/M0D4)
 [![](https://avatars0.githubusercontent.com/u/55098152?s=80&v=4)](https://github.com/khaled-diab)
