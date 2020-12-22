@@ -19,7 +19,7 @@ public class Graph {
     public static void display(String title, ArrayList<Pair<Integer, Integer>> points){
         Stage window = new Stage();
         
-        if(points.size() == 0) points.add(new Pair<>(0, 0));
+        if(points.isEmpty()) points.add(new Pair<>(0, 0));
         
         Pair<Integer, Integer> last = points.get(0);
         
