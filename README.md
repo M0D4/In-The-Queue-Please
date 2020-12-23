@@ -1,4 +1,4 @@
-# In-The-Queue-Please!
+# In The Queue, Please!
 
 ## In Brief, About Queuing Theory:
 
