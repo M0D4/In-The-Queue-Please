@@ -69,7 +69,11 @@ Standard notations for queueing theory also uses these symbols:
 
 ## Our Project:
 
+### Overview:
+
 The understanding and prediction of the stochastic behavior of these queues will provide a theoretical insight into the dynamics of these shared resources and how they can be designed to provide better utilization. And the modeling and analysis of waiting queues/networks is the main implemented subject in this project.
+
+### Goals and Specifications:
 
 We implemented, using Java and JavaFX GUI, the Deterministic and Stochastic Models:
 
@@ -89,7 +93,17 @@ Based on the model you choose and the inputs you have, the project can asnwer yo
 * Expected waiting time spent in the system (W).
 * Expected waiting time spent in the queue (Wq).
 
-## Screenshots:
+### How to work?
+
+After downloading the project and running it, it would be very easy steps:
+
+1. You will get the home application page, as shown in the screenshots below.
+2. Choose the model you want to make analysis with. 
+3. Once you've chosen a model, only the needed parameters will be enabled.
+4. Only Model D/D/1/K-1 can be sketched. Also, you can make a query in.
+5. Enjoy!
+
+### Screenshots:
 
 <div align="center">
 
@@ -110,6 +124,6 @@ Based on the model you choose and the inputs you have, the project can asnwer yo
 
 > This project exists thanks to all wonderful people who contribute: 
 
-[![](https://avatars1.githubusercontent.com/u/51851957?s=80&v=4)](https://github.com/M0D4)
-[![](https://avatars0.githubusercontent.com/u/55098152?s=80&v=4)](https://github.com/khaled-diab)
-[![](https://avatars2.githubusercontent.com/u/52632898?s=80&v=4)](https://github.com/AHR9N)
+[![](https://avatars1.githubusercontent.com/u/51851957?s=70&v=4)](https://github.com/M0D4)
+[![](https://avatars0.githubusercontent.com/u/55098152?s=70&v=4)](https://github.com/khaled-diab)
+[![](https://avatars2.githubusercontent.com/u/52632898?s=70&v=4)](https://github.com/AHR9N)
