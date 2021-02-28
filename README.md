@@ -1,6 +1,6 @@
-# In-The-Queue-Please!
+# In The Queue, Please!
 
-## A Brief About Queuing Theory:
+## In Brief, About Queuing Theory:
 
 Queuing theory (or queueing theory) refers to the mathematical study of the formation, function, and congestion of waiting lines, or queues. The study of queues comes under a discipline of Operations Research called Queueing Theory and is a primary methodological framework for evaluating resource performance besides simulation. Queueing theory is generally considered a branch of operations research because the results are often used when making business decisions about the resources needed to provide a service.
 
@@ -8,7 +8,7 @@ At its core, a queuing situation involves two parts:
 * Someone or something that requests a service—usually referred to as the customer, job, or request.
 * Someone or something that completes or delivers the services—usually referred to as the server.
 
-Queueing theory is used in software development for purposes such as project management kanban boards, inter-process communication message queues, and devops continuous deployment pipelines. A queueing model is constructed so that queue lengths and waiting time can be predicted.
+> Queueing theory is used in software development for purposes such as project management kanban boards, inter-process communication message queues, and devops continuous deployment pipelines. A queueing model is constructed so that queue lengths and waiting time can be predicted.
 
 ## Queueing theory notations:
 
@@ -69,7 +69,11 @@ Standard notations for queueing theory also uses these symbols:
 
 ## Our Project:
 
+### Overview:
+
 The understanding and prediction of the stochastic behavior of these queues will provide a theoretical insight into the dynamics of these shared resources and how they can be designed to provide better utilization. And the modeling and analysis of waiting queues/networks is the main implemented subject in this project.
+
+### Goals and Specifications:
 
 We implemented, using Java and JavaFX GUI, the Deterministic and Stochastic Models:
 
@@ -89,10 +93,37 @@ Based on the model you choose and the inputs you have, the project can asnwer yo
 * Expected waiting time spent in the system (W).
 * Expected waiting time spent in the queue (Wq).
 
+### How to work?
+
+After downloading the project and running it, it would be very easy steps:
+
+1. You will get the home application page, as shown in the screenshots below.
+2. Choose the model you want to make analysis with. 
+3. Once you've chosen a model, only the needed parameters will be enabled.
+4. Only Model D/D/1/K-1 can be sketched. Also, you can make a query in.
+5. Enjoy!
+
+### Screenshots:
+
+<div align="center">
+
+![Screenshot from 2020-12-22 15-29-14](https://user-images.githubusercontent.com/52632898/102894846-65341180-446c-11eb-8549-4be116aff37b.png)
+
+<hr />
+
+![Screenshot from 2020-12-22 15-31-00](https://user-images.githubusercontent.com/52632898/102894972-914f9280-446c-11eb-967c-6f6421fb8cd4.png)
+
+<hr />
+
+![Screenshot from 2020-12-22 15-33-45](https://user-images.githubusercontent.com/52632898/102894936-83017680-446c-11eb-8b93-970ac2b533a0.png)
+
+</div>
+
+
 ## Contributors:
 
-This project exists thanks to all the people who contribute: 
+> This project exists thanks to all wonderful people who contribute: 
 
-[![](https://avatars1.githubusercontent.com/u/51851957?s=80&v=4)](https://github.com/M0D4)
-[![](https://avatars0.githubusercontent.com/u/55098152?s=80&v=4)](https://github.com/khaled-diab)
-[![](https://avatars2.githubusercontent.com/u/52632898?s=80&v=4)](https://github.com/AHR9N)
+[![](https://avatars1.githubusercontent.com/u/51851957?s=70&v=4)](https://github.com/M0D4)
+[![](https://avatars0.githubusercontent.com/u/55098152?s=70&v=4)](https://github.com/khaled-diab)
+[![](https://avatars2.githubusercontent.com/u/52632898?s=70&v=4)](https://github.com/AHR9N)
