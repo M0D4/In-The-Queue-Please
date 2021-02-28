@@ -66,7 +66,7 @@ public class ModelDD1K1 {
 
             for(double i = answer; i >= 0; i -= arrival_time){
                 int res = (int) (EPS + (int)(i * lambda) - (int)((i - arrival_time) / service_time));
-//                System.out.println(i + ": " + res);
+
                 if(res != k) break;
                 answer = (int)i;
             }
