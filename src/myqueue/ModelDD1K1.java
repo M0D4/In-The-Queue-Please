@@ -44,7 +44,7 @@ public class ModelDD1K1 {
                 answer = 0;
             else if(t < ti){
                 answer = (int) (EPS + Math.floor(t / arrival_time) - Math.floor((t / service_time) - (arrival_time / service_time)));
-            }else if(isLambdaMultipleOfMu(lambda, mu)){
+            }else if(isMultiple(mu, lambda)){
                 answer = k_minus_1;
             }else 
                 answer = -1;
@@ -85,9 +85,9 @@ public class ModelDD1K1 {
     }
 
 
-    private static boolean isLambdaMultipleOfMu(double lambda, double mu) {
-        double res = lambda / mu;
-        return (int)res == res;
+    private static boolean isMultiple(double a, double b) {
+        double res = a / b;
+        return (long)res == res;
     }
 
     public double calcWq(int n) {
@@ -103,7 +103,7 @@ public class ModelDD1K1 {
                 answer = -1;
             
             if(answer == -1){
-                if(isLambdaMultipleOfMu(lambda, mu)){
+                if(isMultiple(mu, lambda)){
                      answer = ((service_time - arrival_time)*(lambda * ti - 2) + EPS);
                 }else{
                     answer = -1;
