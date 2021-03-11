@@ -113,7 +113,7 @@ public class ModelDD1K1 {
             if(lambda == mu)
                 answer = ((initialNumberM - 1) * (1 / mu) + EPS);
             else if(n == 0)
-                answer = ((initialNumberM - 1)*(2 * mu) + EPS);
+                answer = ((initialNumberM - 1) / (2 * mu) + EPS);
             else if(n < (int) (ti * lambda + EPS))
                 answer = ((initialNumberM + n - 1) * service_time - n * arrival_time + EPS);
             else 
