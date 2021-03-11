@@ -44,7 +44,7 @@ public class ModelDD1K1 {
                 answer = 0;
             else if(t < ti){
                 answer = (int) (EPS + Math.floor(t / arrival_time) - Math.floor((t / service_time) - (arrival_time / service_time)));
-            }else if(isMultiple(mu, lambda)){
+            }else if(isMultiple(lambda, mu)){
                 answer = k_minus_1;
             }else 
                 answer = -1;
@@ -66,7 +66,7 @@ public class ModelDD1K1 {
 
             for(double i = answer; i >= 0; i -= arrival_time){
                 int res = (int) (EPS + (int)(i * lambda) - (int)((i - arrival_time) / service_time));
-
+//                System.out.println(i + ": " + res);
                 if(res != k) break;
                 answer = (int)i;
             }
